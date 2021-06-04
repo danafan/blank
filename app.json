@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/takingGoods/takingGoods",
     "pages/index/package/package",
     "pages/index/truck/truck",
     "pages/index/getoff/getoff",
@@ -15,7 +16,7 @@
     "pages/index/record/detail/detail",
     "pages/index/record/detail/goods/goods",
     "pages/index/claimGoods/claimGoods",
-    "pages/index/printer/printer"
-    
+    "pages/index/printer/printer",
+    "pages/index/getPackageRecord/getPackageRecord"
   ]
 }

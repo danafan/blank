@@ -1,0 +1,47 @@
+<scroll-view scroll-y="{{true}}">
+  <image class="packageImg" src="{{img_url}}"/>
+  <view class="formRow pageRow">
+    <view class="formLable">车辆：</view>
+    <view class="clRow">
+      <view onTap="carFocus">{{car_no_name}}</view>
+      <image class="gys_delete marginLeft" src="../../../imgs/gys_delete.png" onTap="deleteCl" a:if="{{car_no_id != ''}}"/>
+    </view>
+    <view class="shopList" a:if="{{showCarList}}">
+      <view class="shopItem" a:for="{{car_no}}" data-name="{{item.car_no}}" data-id="{{item.car_id}}" onTap="selCar">{{item.car_no}}</view>
+    </view>
+  </view>
+  <view class="gysRow">
+    <view class="formLable">供应商：</view>
+    <view class="searchInput">
+      <view a:if="{{gys_num.length == 0}}" onTap="addGys">选择供应商</view>
+      <view class="gysItem {{index < gys_num.length - 1?'margin_bottom':''}}" a:for="{{gys_num}}">
+        <view class="searchInput">{{item.shop_name}}</view>
+        <view class="num">{{item.number}}件</view>
+        <image class="gys_delete" data-index="{{index}}" src="../../../imgs/gys_delete.png" onTap="deleteGys"/>
+      </view>
+    </view>
+  </view>
+  <button class="submit" type="ghost" catchTap="addGys" a:if="{{gys_num.length > 0}}">新增供应商</button>
+  <button class="submit" type="primary" catchTap="uploadImg">提交</button>
+  <!-- 添加供应商弹框 -->
+  <view class="modal_box" a:if="{{show_modal}}" onTap="closeModal">
+    <view class="modal_content" catchTap>
+      <view class="conTitle">添加供应商</view>
+      <view class="info">
+        <view class="formRow">
+          <view class="formLable">供应商：</view>
+          <input class="searchInput" onInput="bindKeyInput" onFocus="onfocus" onBlur="onblur" value="{{shop_name}}" placeholder="输入供应商"/>
+          <view class="shopList" a:if="{{showShopList}}">
+            <view class="shopItem" a:for="{{shopList}}" data-name="{{item.supplier_name}}" data-id="{{item.supplier_id}}" onTap="selShop">{{item.supplier_name}}</view>
+          </view>
+        </view>
+        <view class="formRow">
+          <view class="formLable">数量：</view>
+          <input type="number" class="searchInput" onInput="numberInput" value="{{number}}" placeholder="输入拿货数量"/>
+        </view>
+      </view>
+      <button class="ok" type="primary" catchTap="ok">添加
+      </button>
+    </view>
+  </view>
+</scroll-view>

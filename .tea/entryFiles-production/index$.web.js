@@ -1,6 +1,8 @@
 require('@alipay/appx-compiler/lib/sjsEnvInit');
 require('./config$');
+
 require('../../pages/index/index');
+require('../../pages/index/takingGoods/takingGoods');
 require('../../pages/index/package/package');
 require('../../pages/index/truck/truck');
 require('../../pages/index/getoff/getoff');
@@ -16,3 +18,4 @@ require('../../pages/index/record/detail/detail');
 require('../../pages/index/record/detail/goods/goods');
 require('../../pages/index/claimGoods/claimGoods');
 require('../../pages/index/printer/printer');
+require('../../pages/index/getPackageRecord/getPackageRecord');

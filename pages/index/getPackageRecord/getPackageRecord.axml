@@ -1,0 +1,27 @@
+<view>
+  <scroll-view scroll-y="{{true}}" onScrollToLower="lower" class="record" a:if="{{recordList.length > 0}}">
+    <view class="recordItem" a:for="{{recordList}}">
+      <view class="title">{{item.time}}</view>
+      <view class="info">
+        <view class="infoItem">上传人：{{item.username}}                                         
+        </view>
+        <view class="infoItem">包裹号码：{{item.package_id}}                                         
+        </view>
+        <view class="infoItem">供应商：{{item.supplier_name}}                                          
+        </view>  
+        <view class="infoItem">数量：{{item.num}}                                          
+        </view> 
+        <view class="infoItem">车牌号：{{item.car_no}}                                          
+        </view> 
+        <view class="infoItem">图片：
+          <image class="itemImg" src="{{item.image}}"/>                                          
+        </view>                                      
+      </view>
+      <view class="title cancel" data-id="{{item.id}}" data-index="{{index}}" onTap="cancel">删除</view>
+    </view>
+  </scroll-view>
+  <view class="null" a:else>
+    <image src="../../../imgs/kong.png"/>
+    <view>还没有任何记录</view>
+  </view>
+</view>

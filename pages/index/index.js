@@ -5,6 +5,18 @@ Page({
   onLoad() {
     //钉钉获取用户信息
     this.dingInfo();
+    // dd.canIUse('getUpdateManager')
+    // const updateManager = dd.getUpdateManager()
+    // updateManager.onCheckForUpdate(function (res) {
+    //   dd.showToast({
+    //             type: 'none',
+    //             content: res.hasUpdate,
+    //             duration: 2000
+    //           });
+      
+    //   // 请求完新版本信息的回调
+    //   console.log(res.hasUpdate) // 是否有更新
+    // })
   },
   //钉钉获取用户信息
   dingInfo() {
@@ -99,6 +111,14 @@ Page({
       case "3-2":
         //商家取货
         this.scan("3-2");
+        break;
+      case "4-1":
+        //拿货
+        this.getPackagePick();
+        break;
+      case "4-2":
+        //拿货记录
+        dd.navigateTo({ url: '/pages/index/getPackageRecord/getPackageRecord' });
         break;
     }
   },
@@ -220,4 +240,15 @@ Page({
       }
     });
   },
+  //拿货拍照
+  getPackagePick(){
+    dd.chooseImage({
+      count: 1,
+      success: (res) => {
+        let imgSrc = res.apFilePaths[0];
+        dd.navigateTo({ url: '/pages/index/takingGoods/takingGoods?imgSrc=' + imgSrc });
+      },
+    });
+  }
+  
 });

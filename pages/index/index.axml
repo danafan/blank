@@ -67,4 +67,16 @@
       </view>
     </view>
   </view>
+  <view class="items">
+    <view class="item" data-type="4-1" onTap="go">
+      <image src="../../imgs/get_package.png"/>
+      <view>拿货                        
+      </view>
+    </view>
+    <view class="item" data-type="4-2" onTap="go">
+      <image src="../../imgs/get_pack_record.png"/>
+      <view>拿货记录                        
+      </view>
+    </view>
+  </view>
 </view>
