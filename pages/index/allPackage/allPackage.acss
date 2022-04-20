@@ -150,7 +150,8 @@
    font-size: 30rpx;
 }
 .num_input input{
-  height: 70rpx;
+  border: 1px solid #666;
+  height: 80rpx;
 }
 .model_content button {
   margin-top: 20rpx;

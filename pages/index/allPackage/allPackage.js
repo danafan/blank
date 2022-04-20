@@ -40,7 +40,7 @@ Page({
       });
     } else {
       let goodsItem = {
-        sku_id: this.data.goodsItemCode,
+        sku_id: this.data.code,
         num: this.data.goodsItemNum
       }
       this.setData({
@@ -72,29 +72,71 @@ Page({
     if (this.data.goodsItemCode == "") {
       dd.showToast({
         type: 'none',
-        content: "请扫描商品唯一码",
+        content: "请扫描商品编码",
         duration: 2000
       });
       return;
     } else {
-      var isHas = false;
-      this.data.goodsList.map(item => {
-        if (item.sku_id == this.data.goodsItemCode) {
-          isHas = true;
+      dd.httpRequest({
+        url: getApp().globalData.baseurl + 'package/check_sku',
+        method: 'POST',
+        data: {
+          sku_id: this.data.goodsItemCode
+        },
+        dataType: 'json',
+        success: (res) => {
+          this.setData({
+            code:this.data.goodsItemCode,
+            goodsItemCode: ""
+          })
+          var data = res.data;
+          if (data.code == 1) {
+            var isHas = false;
+            this.data.goodsList.map(item => {
+              if (item.sku_id == this.data.goodsItemCode) {
+                isHas = true;
+              }
+            });
+            if (isHas == true) {
+              dd.vibrateLong({
+                success: () => {
+                  dd.showToast({
+                    type: 'none',
+                    content: "该商品已存在，请删除后重新录入！",
+                    duration: 2000
+                  });
+                }
+              });
+            } else {
+              dd.vibrateShort({
+                success: () => {
+                  this.setData({
+                    isModel: true
+                  })
+                }
+              });
+            }
+          } else {
+            dd.vibrateLong({
+              success: () => {
+                dd.alert({
+                  title: '提示',
+                  content: data.msg,
+                  buttonText: '我知道了'
+                });
+              }
+            });
+          }
+        },
+        complete: (res) => {
+          this.setData({
+            goodsItemCode: ""
+          })
         }
       });
-      if(isHas == true){
-        dd.showToast({
-            type: 'none',
-            content: "该商品已存在，请删除后重新录入！",
-            duration: 2000
-          });
-          return;
-      }
+
     }
-    this.setData({
-      isModel: true
-    })
+
   },
   //保证唯一码input一直输入状态
   onblur() {
@@ -117,8 +159,8 @@ Page({
       });
     } else {
       this.setData({
-              isBall: true
-            });
+        isBall: true
+      });
     }
   },
   //关闭完成打包弹框
@@ -199,7 +241,7 @@ Page({
         url: getApp().globalData.baseurl + 'package/batch_pack',
         method: 'POST',
         data: {
-          data:JSON.stringify(this.data.goodsList),
+          data: JSON.stringify(this.data.goodsList),
           supplier_id: this.data.id,
           printer: getApp().globalData.printer,
         },
