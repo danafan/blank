@@ -104,6 +104,10 @@ Page({
         //标记异常
         dd.navigateTo({ url: '/pages/index/sign/sign' });
         break;
+      case "2-7":
+        //批量打包
+        dd.navigateTo({ url: '/pages/index/allPackage/allPackage' });
+        break;
       case "3-1":
         //快递取货
         this.scan("3-1");

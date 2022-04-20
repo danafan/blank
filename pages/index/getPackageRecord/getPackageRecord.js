@@ -1,11 +1,73 @@
 Page({
   data: {
-    recordList: [],                        //记录列表
+    recordList: [],                       //记录列表
     isLoad: true,                         //默认可以加载下一页
-    page: 1,                               //当前页码
+    page: 1,                              //当前页码
+    isFocus: false,                       //默认供应商下拉框不展示
+    searchList: [],                       //展示的供应商列表（包括模糊查询）
+    supplier: "",                         //供应商展示的内容
+    id: "",                               //选中的供应商id
   },
   onLoad() {
     //获取我的所有记录
+    this.getRecord();
+  },
+  //选择供应商输入框获取焦点事件（下拉框展示）
+  onfocus() {
+    //下拉框展示
+    this.setData({
+      isFocus: true
+    });
+  },
+  //下拉框隐藏
+  supOnblur() {
+    this.setData({
+      isFocus: false
+    });
+  },
+  //监听供应商输入
+  bindKeyInput(e) {
+    this.setData({
+      supplier: e.detail.value
+    });
+    dd.httpRequest({
+        url: getApp().globalData.baseurl + 'package/ajaxsupplier',
+        method: 'GET',
+        data: {
+          name: e.detail.value
+        },
+        dataType: 'json',
+        success: (res) => {
+          var data = res.data;
+          if (data.code == 1) {
+            this.setData({
+              searchList: data.data
+            });
+          } else {
+            dd.showToast({
+              type: 'none',
+              content: data.msg,
+              duration: 2000
+            });
+          }
+        }
+      });
+  },
+  //点击选中某一个供应商
+  selItem(e) {
+    this.setData({
+      supplier: e.target.dataset.item.supplier_name,
+      id: e.target.dataset.item.supplier_id,
+      isFocus: false
+    });
+  },
+  // 点击搜索
+  searchFun(){
+    this.setData({
+      page:1,
+      id:this.data.supplier == ""?"":this.data.id,
+      recordList:[]
+    })
     this.getRecord();
   },
   //获取我的所有记录
@@ -18,6 +80,7 @@ Page({
       method: 'GET',
       data: {
         page: this.data.page,
+        supplier_id:this.data.id
       },
       dataType: 'json',
       success: (res) => {

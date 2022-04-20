@@ -13,10 +13,12 @@
     "pages/index/carDetail/cardetail",
     "pages/index/record/record",
     "pages/index/sign/sign",
+    "pages/index/allPackage/allPackage",
     "pages/index/record/detail/detail",
     "pages/index/record/detail/goods/goods",
     "pages/index/claimGoods/claimGoods",
     "pages/index/printer/printer",
-    "pages/index/getPackageRecord/getPackageRecord"
+    "pages/index/getPackageRecord/getPackageRecord",
+    "pages/index/allPackage/allPackage"
   ]
 }

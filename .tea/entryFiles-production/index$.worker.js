@@ -22,6 +22,7 @@ self.$global = AFAppX.$global;
 
 function success() {
 require('../../app');
+require('../../pages/index/allPackage/allPackage');
 require('../../pages/index/index');
 require('../../pages/index/takingGoods/takingGoods');
 require('../../pages/index/package/package');
@@ -40,6 +41,7 @@ require('../../pages/index/record/detail/goods/goods');
 require('../../pages/index/claimGoods/claimGoods');
 require('../../pages/index/printer/printer');
 require('../../pages/index/getPackageRecord/getPackageRecord');
+require('../../pages/index/allPackage/allPackage');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }

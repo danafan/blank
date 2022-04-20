@@ -1,3 +1,11 @@
+.box{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 .packageImg {
   width: 100%;
   height: 750rpx;
@@ -30,7 +38,7 @@
   margin-bottom: 10rpx;
   width: 750rpx;
   background: #ffffff;
-  padding: 28rpx 10rpx;
+  padding: 38rpx 10rpx;
   display: flex;
 }
 .gysItem{
@@ -40,7 +48,7 @@
   justify-content: space-between;
 }
 .margin_bottom{
-padding-bottom: 30rpx;
+padding-bottom: 38rpx;
 }
 .num{
   width: 100rpx;
@@ -87,7 +95,17 @@ padding-bottom: 30rpx;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+.add_gys_box{
+  margin-bottom: 15rpx;
+  background: #fff;
+  padding: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add_gys{
+  width: 700rpx;
+}
 .submit {
   margin-bottom: 15rpx;
   width: 700rpx;

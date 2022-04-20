@@ -9,12 +9,11 @@ Page({
     package: "",           //包裹id
     packageObj: {},        //包裹信息
     isFocus: false,        //默认供应商下拉框不展示
-    supplierList: [],      //返回的所有供应商列表
     searchList: [],        //展示的供应商列表（包括模糊查询）
     supplier: "",          //供应商展示的内容
     id: "",                //选中的供应商id
-    type:1,                //1:第一次打包；0:商家不一致确认之后第二次打包
-    isOver:true,           //为true时可点击完成打包
+    type: 1,                //1:第一次打包；0:商家不一致确认之后第二次打包
+    isOver: true,           //为true时可点击完成打包
   },
   onLoad() {
     //判断首页是否意外退出
@@ -68,7 +67,7 @@ Page({
       return;
     }
     this.setData({
-      isOver:false
+      isOver: false
     })            //完成打包按钮不可点击
     var obj = {
       uniqNum: this.data.code,
@@ -85,21 +84,26 @@ Page({
       success: (res) => {
         var data = res.data;
         this.setData({
-            isOver:true
-          });
+          isOver: true,
+          code: ""
+        });
         if (data.code == 1) {
           this.setData({
             dataObj: data.data,
             package: data.data.package_id,
             goodsList: data.goods
           });
-          dd.showToast({
-            type: 'none',
-            content: "添加成功",
-            duration: 1000
+          dd.vibrateShort({
+            success: () => {
+              dd.showToast({
+                type: 'none',
+                content: "添加成功",
+                duration: 1000
+              });
+            }
           });
         } else {
-          dd.vibrate({
+          dd.vibrateLong({
             success: () => {
               dd.alert({
                 title: '提示',
@@ -109,11 +113,18 @@ Page({
             }
           });
         }
+      }, fail: (res) => {
+        this.setData({
+          code: ""
+        });
+        dd.alert({
+          title: '提示',
+          content: res,
+          buttonText: '我知道了'
+        });
       }
     });
-    this.setData({
-      code: ""
-    });
+
   },
   //保证唯一码input一直输入状态
   onblur() {
@@ -128,19 +139,19 @@ Page({
   },
   //打开完成打包弹框
   showBall() {
-    if(!this.data.isOver){
+    if (!this.data.isOver) {
       dd.showToast({
         type: 'none',
         content: '正在添加商品，请稍后...',
         duration: 2000,
       });
-    }else if (this.data.goodsList.length == 0){
+    } else if (this.data.goodsList.length == 0) {
       dd.showToast({
         type: 'none',
         content: "还没有包裹哦～",
         duration: 2000
       });
-    }else{
+    } else {
       dd.httpRequest({
         url: getApp().globalData.baseurl + 'package/packageinfo',
         method: 'GET',
@@ -154,9 +165,7 @@ Page({
             this.setData({
               isBall: true,
               isfocus: false,
-              packageObj: data.data,
-              supplierList: data.data.gysNmae,
-              searchList: data.data.gysNmae
+              packageObj: data.data
             });
           } else {
             dd.showToast({
@@ -185,18 +194,28 @@ Page({
   },
   //监听供应商输入
   bindKeyInput(e) {
-    this.setData({
-      searchList: []
-    });
-    let arr = [];
-    this.data.supplierList.map(item => {
-      if (item.supplier_name.toLowerCase().indexOf(e.detail.value.toLowerCase()) > -1) {
-        arr.push(item);
-      }
-    });
-    this.setData({
-      searchList: arr
-    });
+    dd.httpRequest({
+        url: getApp().globalData.baseurl + 'package/ajaxsupplier',
+        method: 'GET',
+        data: {
+          name: e.detail.value
+        },
+        dataType: 'json',
+        success: (res) => {
+          var data = res.data;
+          if (data.code == 1) {
+            this.setData({
+              searchList: data.data
+            });
+          } else {
+            dd.showToast({
+              type: 'none',
+              content: data.msg,
+              duration: 2000
+            });
+          }
+        }
+      });
   },
   //点击选中某一个供应商
   selItem(e) {
@@ -214,7 +233,7 @@ Page({
   },
   //确认打包
   ok() {
-   if (getApp().globalData.printer == "") {
+    if (getApp().globalData.printer == "") {
       dd.showToast({
         type: 'none',
         content: '请选择打印机',
@@ -242,7 +261,7 @@ Page({
           time: this.data.packageObj.time,
           operator: this.data.packageObj.operator,
           choose: getApp().globalData.printer,
-          type:this.data.type
+          type: this.data.type
         },
         dataType: 'json',
         success: (res) => {

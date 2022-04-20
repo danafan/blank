@@ -1,14 +1,7 @@
-<scroll-view scroll-y="{{true}}">
+<view id="bbb" class="box">
   <image class="packageImg" src="{{img_url}}"/>
-  <view class="formRow pageRow">
-    <view class="formLable">车辆：</view>
-    <view class="clRow">
-      <view onTap="carFocus">{{car_no_name}}</view>
-      <image class="gys_delete marginLeft" src="../../../imgs/gys_delete.png" onTap="deleteCl" a:if="{{car_no_id != ''}}"/>
-    </view>
-    <view class="shopList" a:if="{{showCarList}}">
-      <view class="shopItem" a:for="{{car_no}}" data-name="{{item.car_no}}" data-id="{{item.car_id}}" onTap="selCar">{{item.car_no}}</view>
-    </view>
+  <view class="add_gys_box">
+    <button class="add_gys" type="ghost" catchTap="addGys" a:if="{{gys_num.length > 0}}">新增供应商</button>
   </view>
   <view class="gysRow">
     <view class="formLable">供应商：</view>
@@ -21,18 +14,27 @@
       </view>
     </view>
   </view>
-  <button class="submit" type="ghost" catchTap="addGys" a:if="{{gys_num.length > 0}}">新增供应商</button>
-  <button class="submit" type="primary" catchTap="uploadImg">提交</button>
+  <view class="formRow pageRow">
+    <view class="formLable">车辆：</view>
+    <view class="clRow">
+      <view onTap="carFocus">{{car_no_name}}</view>
+      <image class="gys_delete marginLeft" src="../../../imgs/gys_delete.png" onTap="deleteCl" a:if="{{car_no_id != ''}}"/>
+    </view>
+    <view class="shopList" a:if="{{showCarList}}">
+      <view class="shopItem" a:for="{{car_no}}" data-name="{{item.car_no}}" data-id="{{item.car_id}}" onTap="selCar">{{item.car_no}}</view>
+    </view>
+  </view>
+  <button class="submit" type="primary" catchTap="uploadImg" id="box">提交</button>
   <!-- 添加供应商弹框 -->
-  <view class="modal_box" a:if="{{show_modal}}" onTap="closeModal">
+  <view class="modal_box" a:if="{{show_modal}}" catchTap="closeModal">
     <view class="modal_content" catchTap>
       <view class="conTitle">添加供应商</view>
       <view class="info">
         <view class="formRow">
           <view class="formLable">供应商：</view>
-          <input class="searchInput" onInput="bindKeyInput" onFocus="onfocus" onBlur="onblur" value="{{shop_name}}" placeholder="输入供应商"/>
+          <input class="searchInput" onInput="bindKeyInput" onFocus="onfocus" value="{{shop_name}}" placeholder="输入供应商"/>
           <view class="shopList" a:if="{{showShopList}}">
-            <view class="shopItem" a:for="{{shopList}}" data-name="{{item.supplier_name}}" data-id="{{item.supplier_id}}" onTap="selShop">{{item.supplier_name}}</view>
+            <view class="shopItem" a:for="{{shopList}}" data-name="{{item.supplier_name}}" data-id="{{item.supplier_id}}" catchTap="selShop">{{item.supplier_name}}</view>
           </view>
         </view>
         <view class="formRow">
@@ -44,4 +46,4 @@
       </button>
     </view>
   </view>
-</scroll-view>
+</view>

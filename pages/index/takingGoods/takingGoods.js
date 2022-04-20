@@ -11,12 +11,12 @@ Page({
     car_no: [],              //车牌号列表
     car_no_name: "请选择车辆（非必选）",         //选中的车牌
     car_no_id: "",           //选中的车牌号id
-    show_modal: false,       //默认不显示弹框
+    show_modal: true,       //默认不显示弹框
   },
   onLoad(query) {
     this.setData({
       img_url: query.imgSrc,
-      gys_num:[]
+      gys_num: []
     })
     //获取车牌号列表
     this.getCarNo();
@@ -101,7 +101,7 @@ Page({
       shop_name: e.target.dataset.name,
       shop_id: e.target.dataset.id,
       showShopList: false
-    })
+    });
   },
   //搜索框获取焦点事件
   onfocus() {
@@ -109,11 +109,6 @@ Page({
     this.setData({
       showShopList: true,
       showCarList: false
-    })
-  },
-  onblur() {
-    this.setData({
-      showShopList: false
     })
   },
   //关闭弹框

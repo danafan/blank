@@ -1,0 +1,73 @@
+<view class="package">
+  <view class="top">
+   <view class="labels">
+      <view class="onlyCode">商品编码：                                                                      
+        <input onInput="bindKeyInput1" onConfirm="searchBtn" focus="{{isfocus}}" value="{{goodsItemCode}}" onBlur="onblur"/>
+      </view>
+      <view class="title">商品列表                                                              
+      </view>
+    </view>
+    <view class="list" a:if="{{goodsList.length > 0}}">
+      <view class="goodsItem" a:for="{{goodsList}}">
+        <view class="goodsCode">{{item.sku_id}}
+        </view>
+        <view class="row_right">
+          <view class="number">{{item.num}}件
+          </view>
+          <image src="../../../imgs/delete_goods.png" data-index="{{index}}" onTap="deleteGoods" class="delete_goods"/>
+        </view>
+      </view>
+    </view>
+    <view class="null" a:else>
+      <image src="../../../imgs/kong.png"/>
+      <view>还没有商品哦
+      </view>
+    </view>
+  </view>
+  <view class="buts">
+    <button type="primary" onTap="showBall">完成打包
+    </button>
+  </view>
+  <!-- 填写数量弹窗 -->
+  <view class="num_model" a:if="{{isModel}}" onTap="closeModel">
+    <view class="model_content" catchTap>
+      <view class="goods_code">{{goodsItemCode}}</view>
+      <view class="num_input">
+        <view class="label">数量：</view>
+        <input onInput="bindGoodsNumber" type="number" value="{{goodsItemNum}}"/>
+      </view>
+      <button type="primary" onTap="confirmNum">确定
+      </button>
+    </view>
+  </view>
+  <!--提示弹框 -->
+  <view class="toast" a:if="{{toast}}">
+    <view class="box">
+      <view class="toastCon">        请用PDA扫描                        
+      </view>
+      <view class="know" onTap="ikonw">我知道了                  
+      </view>
+    </view>
+  </view>
+  <!-- 完成打包弹框 -->
+  <view class="ball" a:if="{{isBall}}" onTap="closeBall">
+    <view class="content" catchTap>
+      <view class="conTitle">确认包裹信息
+      </view>
+      <view class="info">
+        <view class="infoItem">
+          <view class="infoName">供应商：
+          </view>
+          <view class="select">
+            <input type="text" placeholder="请选择供应商" onFocus="supOnfocus" onBlur="supOnblur" onInput="bindKeyInput" value="{{supplier}}"/>
+            <view class="selectBox" a:if="{{isFocus}}">
+              <view class="selItem" a:for="{{searchList}}" data-item="{{item}}" onTap="selItem">{{item.supplier_name}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <button class="ok" type="primary" catchTap="ok">确认打包
+      </button>
+    </view>
+  </view>
+</view>
