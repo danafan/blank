@@ -29,7 +29,7 @@
     </button>
   </view>
   <!-- 填写数量弹窗 -->
-  <view class="num_model" a:if="{{isModel}}" onTap="closeModel">
+  <view class="num_model" a:if="{{isModel}}">
     <view class="model_content" catchTap>
       <view class="goods_code">{{goodsItemCode}}</view>
       <view class="num_input">

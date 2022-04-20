@@ -52,15 +52,6 @@ Page({
       })
     }
   },
-  //点击关闭弹窗
-  closeModel() {
-    this.setData({
-      goodsItemCode: "",
-      goodsItemNum: 1,
-      isModel: false,
-      isfocus: true
-    })
-  },
   //删除商品
   deleteGoods(v) {
     let index = v.target.dataset.index;
