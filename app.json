@@ -19,6 +19,7 @@
     "pages/index/claimGoods/claimGoods",
     "pages/index/printer/printer",
     "pages/index/getPackageRecord/getPackageRecord",
-    "pages/index/allPackage/allPackage"
+    "pages/index/allPackage/allPackage",
+    "pages/index/returnRoom/returnRoom"
   ]
 }

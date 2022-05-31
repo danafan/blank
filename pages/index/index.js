@@ -5,18 +5,6 @@ Page({
   onLoad() {
     //钉钉获取用户信息
     this.dingInfo();
-    // dd.canIUse('getUpdateManager')
-    // const updateManager = dd.getUpdateManager()
-    // updateManager.onCheckForUpdate(function (res) {
-    //   dd.showToast({
-    //             type: 'none',
-    //             content: res.hasUpdate,
-    //             duration: 2000
-    //           });
-      
-    //   // 请求完新版本信息的回调
-    //   console.log(res.hasUpdate) // 是否有更新
-    // })
   },
   //钉钉获取用户信息
   dingInfo() {
@@ -115,6 +103,10 @@ Page({
       case "3-2":
         //商家取货
         this.scan("3-2");
+        break;
+      case "3-3":
+        //扫码获取
+        this.scan("3-3");
         break;
       case "4-1":
         //拿货
@@ -238,6 +230,18 @@ Page({
               });
             } else {
               dd.navigateTo({ url: '/pages/index/claimGoods/claimGoods?type=2' });
+            }
+            break;
+          case "3-3":
+            //返仓
+            if (isGoods == true || codeObj.type != "1") {
+              dd.showToast({
+                type: 'none',
+                content: "请扫描包裹二维码",
+                duration: 2000
+              });
+            } else {
+              dd.navigateTo({ url: '/pages/index/returnRoom/returnRoom' });
             }
             break;
         }

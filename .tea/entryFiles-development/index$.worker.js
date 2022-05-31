@@ -38,6 +38,7 @@ require('../../pages/index/claimGoods/claimGoods');
 require('../../pages/index/printer/printer');
 require('../../pages/index/getPackageRecord/getPackageRecord');
 require('../../pages/index/allPackage/allPackage');
+require('../../pages/index/returnRoom/returnRoom');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }

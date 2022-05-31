@@ -24,6 +24,13 @@
     </view>
   </view>
   <view class="items">
+    <view class="item" data-type="3-3" onTap="go">
+      <image src="../../imgs/fc_icon.png"/>
+      <view>返仓                        
+      </view>
+    </view>
+  </view>
+  <view class="items">
     <view class="item" data-type="2-1" onTap="go">
       <image src="../../imgs/tuihui.png"/>
       <view>商品退回                         

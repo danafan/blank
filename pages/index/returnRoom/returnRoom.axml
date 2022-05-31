@@ -1,0 +1,24 @@
+<view class="reachBox">
+  <view class="infoItem">
+    <view class="label">包裹ID：        
+    </view>{{packageId}}    
+  </view>
+  <view class="infoItem">
+    <view class="label">供应商：    
+    </view>    {{packageObj.supplier_name}}    
+  </view>
+  <view class="infoItem">
+    <view class="label">商品件数：      
+    </view>    {{packageObj.goods_num}}    
+  </view>
+  <view class="infoItem">
+    <view class="label">装车日期：      
+    </view>    {{packageObj.get_on_time}}    
+  </view>
+  <view class="infoItem">
+    <view class="label">装车人：      
+    </view>    {{packageObj.operator}}    
+  </view>
+  <button type="primary" onTap="ok">确认返仓
+  </button>
+</view>
