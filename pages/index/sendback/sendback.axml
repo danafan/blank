@@ -3,6 +3,10 @@
         <view class="label">唯一码：</view>
         <view class="sku">{{sku}}</view>
     </view>
+    <view class="skuBox">
+        <view class="label">数量：</view>
+        <input class="num_input" onInput="bindKeyInput" disabled="{{type == 1}}" value="{{num}}"/>
+    </view>
     <view class="cause">
         <view class="title">退错原因</view>
         <textarea class="textarea" maxlength="-1" placeholder="请输入退错原因" onInput="inputKey"/>

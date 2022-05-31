@@ -29,6 +29,9 @@
     line-height: 60rpx;
     color: #999;
 }
+.num_input{
+  border: 1px solid #cccccc;
+}
 .cause .title{
     font-size: 30rpx;
     font-weight: bold;

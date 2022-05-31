@@ -1,28 +1,38 @@
 Page({
   data: {
     sku: "",            //唯一码
+    type:0,            //是否是唯一码
+    num:1,
     cause: "",          //退货原因
     title: "",           //顶部标题
   },
   onLoad(e) {
-    let sku = getApp().globalData.codeObj;
+    this.setData({
+      sku:getApp().globalData.codeObj
+    })
     //验证商品唯一码
-    this.verify(sku);
+    this.verify();
+  },
+  bindKeyInput(e){
+    this.setData({
+      num:e.detail.value
+    })
   },
   //验证商品唯一码
-  verify(sku) {
+  verify() {
     dd.httpRequest({
       url: getApp().globalData.baseurl + 'goods/check_code',
       method: 'GET',
       data: {
-        unique_no: sku
+        unique_no: getApp().globalData.codeObj
       },
       dataType: 'json',
       success: (res) => {
         var data = res.data;
         if (data.code == 1) {
           this.setData({
-            sku: getApp().globalData.codeObj
+            sku: getApp().globalData.codeObj,
+            type:data.data.type
           })
         } else {
           dd.showToast({
@@ -47,7 +57,19 @@ Page({
   },
   //点击提交
   submit() {
-    if (this.data.cause == "") {
+    if(this.data.num == ''){
+      dd.showToast({
+        type: 'none',
+        content: '数量不能为空',
+        duration: 2000
+      });
+    }else if (this.data.num <= 0) {
+      dd.showToast({
+        type: 'none',
+        content: '数量必须大于0',
+        duration: 2000
+      });
+    }else if (this.data.cause == "") {
       dd.showToast({
         type: 'none',
         content: '请输入退错原因',
@@ -62,7 +84,8 @@ Page({
         method: 'POST',
         data: {
           unique_no: this.data.sku,
-          reason: this.data.cause
+          reason: this.data.cause,
+          num:this.data.num
         },
         dataType: 'json',
         success: (res) => {
