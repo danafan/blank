@@ -1,15 +1,11 @@
 Page({
   data: {
-    code: "",             //扫码获得的车辆id
+    code: "1",             //扫码获得的车辆id
     carObj: {},           //车辆信息对象
     packageList: [],      //当前车辆的包裹列表      
   },
   //页面加载完成
   onLoad() {
-    //获取扫描的车辆id
-    this.setData({
-      code: getApp().globalData.codeObj.id
-    })
     //根据扫描车辆的id获取车辆信息
     this.getCarinfo();
   },

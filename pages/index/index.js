@@ -58,7 +58,7 @@ Page({
         break;
       case "1-2":
         //装车
-        this.scan("1-2");
+        dd.navigateTo({ url: '/pages/index/truck/truck' });
         break;
       case "1-3":
         //下车
@@ -135,18 +135,6 @@ Page({
           isGoods = true;
         }
         switch (type) {
-          case "1-2":
-            //装车
-            if (isGoods == true || codeObj.type != "2") {
-              dd.showToast({
-                type: 'none',
-                content: "请扫描车辆二维码",
-                duration: 2000
-              });
-            } else {
-              dd.navigateTo({ url: '/pages/index/truck/truck' });
-            }
-            break;
           case "1-3":
             //下车
             if (isGoods == true || codeObj.type != "1") {
