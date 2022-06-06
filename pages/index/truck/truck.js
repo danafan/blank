@@ -1,6 +1,6 @@
 Page({
   data: {
-    code: "1",             //扫码获得的车辆id
+    code: "1",            //扫码获得的车辆id
     carObj: {},           //车辆信息对象
     packageList: [],      //当前车辆的包裹列表      
   },
@@ -124,7 +124,8 @@ Page({
             url: getApp().globalData.baseurl + 'car/delpackage',
             method: 'GET',
             data: {
-              packageId: e.currentTarget.dataset.id
+              packageId: e.currentTarget.dataset.id,
+              carId: this.data.code,
             },
             dataType: 'json',
             success: (res) => {
@@ -172,14 +173,33 @@ Page({
         cancelButtonText: '取消',
         success: (result) => {
           if (result.confirm == true) {
-            dd.showToast({
-              type: 'none',
-              content: "装车完成",
-              duration: 1000,
-              success: res => {
-                dd.navigateBack({
-                  delta: 1
-                })
+            dd.httpRequest({
+              url: getApp().globalData.baseurl + 'car/confirm',
+              method: 'POST',
+              data: {
+                carId: this.data.code,
+              },
+              dataType: 'json',
+              success: (res) => {
+                var data = res.data;
+                if (data.code == 1) {
+                  dd.showToast({
+                    type: 'none',
+                    content: "装车完成",
+                    duration: 1000,
+                    success: res => {
+                      dd.navigateBack({
+                        delta: 1
+                      })
+                    }
+                  });
+                } else {
+                  dd.showToast({
+                    type: 'none',
+                    content: data.msg,
+                    duration: 2000
+                  });
+                }
               }
             });
           } else {
@@ -217,7 +237,7 @@ Page({
               url: getApp().globalData.baseurl + 'car/reset',
               method: 'POST',
               data: {
-                packageIds: packageids.join("-")
+                carId: this.data.code,
               },
               dataType: 'json',
               success: (res) => {

@@ -73,19 +73,28 @@
 }
 
 .infoLeft,.infoRight{
-  width: 50%;
+  flex:1;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   font-size: 26rpx;
 }
 .Item{
+  width:100%;
   display: flex;
 }
 .label{
   font-size: 28rpx;
   font-weight: bold;
   width: 120rpx;
+}
+.label_right{
+  font-size: 28rpx;
+  font-weight: bold;
+  width: 90rpx;
+}
+.item_value{
+  flex:1;
 }
 
 .delete{

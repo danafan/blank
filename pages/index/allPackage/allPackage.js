@@ -12,6 +12,7 @@ Page({
     isFocus: false,        //默认供应商下拉框不展示
     searchList: [],        //展示的供应商列表（包括模糊查询）
     supplier: "",          //供应商展示的内容
+    remark:"",
     id: "",                //选中的供应商id
     isOver: true,          //为true时可点击完成打包
     goodsItemCode: "",      //扫描之后临时的商品code
@@ -149,6 +150,12 @@ Page({
       });
     }
   },
+   //监听备注
+  checkRemark(e){
+    this.setData({
+      remark: e.detail.value
+    });
+  },
   //打开完成打包弹框
   showBall() {
     if (this.data.goodsList.length == 0) {
@@ -243,6 +250,7 @@ Page({
         data: {
           data: JSON.stringify(this.data.goodsList),
           supplier_id: this.data.id,
+          remark:this.data.remark,
           printer: getApp().globalData.printer,
         },
         dataType: 'json',

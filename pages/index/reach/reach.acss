@@ -27,3 +27,111 @@ button{
   line-height: 80rpx;
   font-size: 28rpx;
 }
+.model {
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    border-radius: 12rpx;
+    background: #fff;
+    width: 600rpx;
+}
+
+.content .title {
+    width: 100%;
+    text-align: center;
+    height: 90rpx;
+    line-height: 90rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+}
+
+.uploadImg {
+    margin: 0 auto;
+    background: #f4f4f4;
+    width: 560rpx;
+    height: 460rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imgContent image {
+    margin-bottom: 20rpx;
+    width: 80rpx;
+    height: 70rpx;
+}
+
+.imgContent .subname {
+    font-size: 26rpx;
+}
+
+.cardImg {
+    position: relative;
+    margin: 0 auto;
+    width: 560rpx;
+    height: 460rpx;
+}
+
+.cardImg .img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cardImg .closeImg {
+    background: rgba(0, 0, 0, .66);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60rpx;
+    height: 60rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardImg .closeImg image {
+    width: 36rpx;
+    height: 36rpx;
+}
+
+.content button {
+    margin: 20rpx auto;
+    width: 560rpx;
+    text-align: center;
+    height: 80rpx;
+    line-height: 80rpx;
+    font-size: 30rpx;
+    color: #fff;
+}
+
+.reset {
+    margin: 0 auto 20rpx;
+    border-radius: 10rpx;
+    background: #999;
+    width: 560rpx;
+    text-align: center;
+    height: 80rpx;
+    line-height: 80rpx;
+    font-size: 30rpx;
+    color: #fff;
+}

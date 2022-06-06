@@ -11,6 +11,7 @@ Page({
     isFocus: false,        //默认供应商下拉框不展示
     searchList: [],        //展示的供应商列表（包括模糊查询）
     supplier: "",          //供应商展示的内容
+    remark:"",             //备注
     id: "",                //选中的供应商id
     type: 1,                //1:第一次打包；0:商家不一致确认之后第二次打包
     isOver: true,           //为true时可点击完成打包
@@ -54,6 +55,12 @@ Page({
   bindKeyInput1(e) {
     this.setData({
       code: e.detail.value
+    });
+  },
+  //监听备注
+  checkRemark(e){
+    this.setData({
+      remark: e.detail.value
     });
   },
   //回车时触发
@@ -242,7 +249,7 @@ Page({
           dd.navigateTo({ url: '/pages/index/printer/printer' });
         }
       });
-    } else if (this.data.supplier == "") {
+    } else  if (this.data.supplier == "") {
       dd.showToast({
         type: 'none',
         content: '请选择供应商',
@@ -261,6 +268,7 @@ Page({
           time: this.data.packageObj.time,
           operator: this.data.packageObj.operator,
           choose: getApp().globalData.printer,
+          remark:this.data.remark,
           type: this.data.type
         },
         dataType: 'json',

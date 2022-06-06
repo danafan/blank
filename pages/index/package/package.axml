@@ -68,6 +68,11 @@
           <view class="infoName">打包人：                                                    
           </view>          {{packageObj.operator}}                                                
         </view>
+        <view class="infoItem">
+          <view class="infoName">备注：                                                    
+          </view>
+          <input class="textarea" type="text" placeholder="请输入备注" onInput="checkRemark" value="{{remark}}"/>                                         
+        </view>
       </view>
       <button class="ok" type="primary" catchTap="ok">确认打包                                                      
       </button>

@@ -18,22 +18,22 @@
           <view class="packageInfo">
             <view class="infoLeft">
               <view class="Item">
-                <view class="label">包裹号：                                    
-                </view>{{item.id}}                                
+                <view class="label">包裹号：</view>                                  
+                <view class="item_value">{{item.id}}</view>                                 
               </view>
               <view class="Item">
-                <view class="label">打包人：                                    
-                </view>{{item.operator}}                                
+                <view class="label">打包人：</view>                                    
+                <view class="item_value">{{item.operator}}</view>                                
               </view>
             </view>
             <view class="infoRight">
               <view class="Item">
-                <view class="label">件数：                                    
-                </view>{{item.goods_num}}                                
+                <view class="label_right">件数：</view>                                    
+                <view class="item_value">{{item.goods_num}}</view>                                
               </view>
               <view class="Item">
-                <view class="label">日期：                                    
-                </view>{{item.pack_time}}                                
+                <view class="label_right">日期：</view>                                    
+                <view class="item_value">{{item.pack_time}}</view>                                
               </view>
             </view>
           </view>
