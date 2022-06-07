@@ -1,6 +1,5 @@
 <view class="truck">
-  <!-- <view class="list" a:if="{{packageList.length > 0}}"> -->
-  <view class="list" a:if="{{packageList > 0}}">
+  <view class="list" a:if="{{packageList.length > 0}}">
     <view class="packageItem" a:for="{{packageList}}">
       <view class="packageCode">供应商：{{item.supplier_name}}
       </view>

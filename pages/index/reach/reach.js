@@ -55,11 +55,10 @@ Page({
   addPackage(codeObj) {
     //传递包裹id和type添加包裹
     dd.httpRequest({
-      url: getApp().globalData.baseurl + 'car/scanpackage',
+      url: getApp().globalData.baseurl + 'arrive/getpackageinfo',
       method: 'GET',
       data: {
         packageId: codeObj.id,
-        carId: this.data.code,
         type: codeObj.type
       },
       dataType: 'json',
