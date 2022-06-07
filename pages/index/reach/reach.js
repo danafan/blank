@@ -1,9 +1,14 @@
 Page({
   data: {
-    packageList: 20,      //当前车辆的包裹列表   
+    packageList: [],      //当前车辆的包裹列表   
     isModel: false,        //默认上传凭证弹框不显示
     imgSrc: "",            //展示的图片地址
     imgObj: {},            //可传递的图片对象   
+  },
+  onLoad() {
+    this.setData({
+      packageList: []
+    })
   },
   //扫描包裹二维码增加包裹
   scan() {
@@ -59,16 +64,15 @@ Page({
       method: 'GET',
       data: {
         packageId: codeObj.id,
-        type: codeObj.type
+        type: "1"
       },
       dataType: 'json',
       success: (res) => {
         var data = res.data;
         if (data.code == 1) {
+          this.data.packageList.unshift(data.data)
           this.setData({
-            code: data.data.id,              //修改当前车辆id
-            carObj: data.data,               //车辆信息对象
-            packageList: data.packageInfo    //当前车辆的包裹列表
+            packageList: this.data.packageList    //包裹列表
           });
           dd.showToast({
             type: 'none',
@@ -94,38 +98,11 @@ Page({
       cancelButtonText: '取消',
       success: (result) => {
         if (result.confirm == true) {
-          dd.httpRequest({
-            url: getApp().globalData.baseurl + 'car/delpackage',
-            method: 'GET',
-            data: {
-              packageId: e.currentTarget.dataset.id,
-              carId: this.data.code,
-            },
-            dataType: 'json',
-            success: (res) => {
-              var data = res.data;
-              if (data.code == 1) {
-                dd.showToast({
-                  type: 'none',
-                  content: "删除成功",
-                  duration: 1000,
-                  success: () => {
-                    let index = e.currentTarget.dataset.index;
-                    let arr = this.data.packageList;
-                    arr.splice(index, 1);
-                    this.setData({
-                      packageList: arr
-                    });
-                  }
-                });
-              } else {
-                dd.showToast({
-                  type: 'none',
-                  content: data.msg,
-                  duration: 2000
-                });
-              }
-            }
+          let index = e.currentTarget.dataset.index;
+          let arr = this.data.packageList;
+          arr.splice(index, 1);
+          this.setData({
+            packageList: arr
           });
         } else {
           dd.showToast({
@@ -146,9 +123,40 @@ Page({
         duration: 2000
       })
     } else {
-      this.setData({
-        isModel: true
+      var isSet = true;
+      var gys_id = this.data.packageList[0].supplier_id;
+      this.data.packageList.map((item, index) => {
+        if (item.supplier_id != gys_id) {
+          isSet = false;
+          return;
+        }
       });
+      if (isSet == true) {
+        this.setData({
+          isModel: true
+        });
+      } else {
+        dd.confirm({
+          title: '提示',
+          content: '以上商品不是同一个供应商哦，确认送达吗？',
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          success: (result) => {
+            if (result.confirm == true) {
+              this.setData({
+                isModel: true
+              });
+            } else {
+              dd.showToast({
+                type: 'none',
+                content: "取消送达",
+                duration: 2000
+              });
+            };
+          },
+        });
+      }
+
     }
   },
   //点击上传图片
@@ -181,7 +189,7 @@ Page({
     } else {
       //上传
       dd.showLoading({
-        content: '正在取货...'
+        content: '正在送达...'
       });
       dd.uploadFile({
         url: getApp().globalData.baseurl + 'supplier/upload_evidence',
@@ -191,7 +199,7 @@ Page({
         success: (res) => {
           let data = JSON.parse(res.data);
           if (data.code == '1') {
-            //取货
+            //送达
             this.getHuo(data.img_url);
           } else {
             dd.showToast({
@@ -212,12 +220,11 @@ Page({
     });
     let obj = {
       img_url: url,
-      package_ids: arr.join("_"),
-      get_type: this.data.type == '1' ? 3 : 2
+      packageId: arr.join(","),
     }
     dd.httpRequest({
-      url: getApp().globalData.baseurl + 'supplier/get_complete',
-      method: 'POST',
+      url: getApp().globalData.baseurl + 'arrive/confirmarrive',
+      method: 'GET',
       data: obj,
       dataType: 'json',
       success: (res) => {
@@ -226,7 +233,7 @@ Page({
         if (data.code == 1) {
           dd.showToast({
             type: 'none',
-            content: "已取货",
+            content: "已送达",
             duration: 2000,
             success: () => {
               dd.navigateBack({

@@ -60,7 +60,7 @@
                     <image src="../../../imgs/guanbi.png"/>
                 </view>
             </view>
-            <button type="primary" onTap="claim">确认取货               
+            <button type="primary" onTap="claim">确认送达               
             </button>
             <view class="reset" onTap="qu">取消                
             </view>
