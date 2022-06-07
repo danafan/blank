@@ -1,57 +1,158 @@
 Page({
   data: {
-    packageId: "",               //扫描的包裹id
-    packageObj: {},              //包裹详情
+    packageList: 20,      //当前车辆的包裹列表   
     isModel: false,        //默认上传凭证弹框不显示
     imgSrc: "",            //展示的图片地址
-    imgObj: {},            //可传递的图片对象
+    imgObj: {},            //可传递的图片对象   
   },
-  onLoad() {
-    //获取扫描的包裹id
-    this.setData({
-      packageId: getApp().globalData.codeObj.id
-    })
-    //获取包裹信息
-    this.getPackage();
+  //扫描包裹二维码增加包裹
+  scan() {
+    //弹出扫描二维码的框
+    dd.scan({
+      type: 'qr',
+      success: (res) => {
+        if (res.code.indexOf("type") > -1) {
+          var codeObj = JSON.parse(res.code)
+          if (codeObj.type != "1") {    //扫描的不是包裹
+            dd.showToast({
+              type: 'none',
+              content: "请扫描包裹码",
+              duration: 2000
+            });
+          } else if (this.judge(codeObj.id) == false) {
+            dd.showToast({
+              type: 'none',
+              content: "请勿重复扫描",
+              duration: 2000
+            });
+          } else {
+            //添加包裹
+            this.addPackage(codeObj);
+          }
+        } else {
+          dd.showToast({
+            type: 'none',
+            content: "请扫描包裹码",
+            duration: 2000
+          });
+        }
+      }
+    });
   },
-  //获取包裹信息
-  getPackage() {
+  //判断是否重复扫描
+  judge(id) {
+    let aa = true;
+    for (var i = 0; i < this.data.packageList.length; i++) {
+      if (this.data.packageList[i].id == id) {
+        return aa = false;
+      } else {
+        aa = true;
+      }
+    }
+    return aa;
+  },
+  //添加包裹
+  addPackage(codeObj) {
+    //传递包裹id和type添加包裹
     dd.httpRequest({
-      url: getApp().globalData.baseurl + 'arrive/getpackageinfo',
+      url: getApp().globalData.baseurl + 'car/scanpackage',
       method: 'GET',
       data: {
-        packageId: this.data.packageId,
-        type: "1"
+        packageId: codeObj.id,
+        carId: this.data.code,
+        type: codeObj.type
       },
       dataType: 'json',
       success: (res) => {
         var data = res.data;
         if (data.code == 1) {
           this.setData({
-            packageObj: data.data
+            code: data.data.id,              //修改当前车辆id
+            carObj: data.data,               //车辆信息对象
+            packageList: data.packageInfo    //当前车辆的包裹列表
+          });
+          dd.showToast({
+            type: 'none',
+            content: "扫描成功",
+            duration: 1000
           });
         } else {
           dd.showToast({
             type: 'none',
             content: data.msg,
-            duration: 2000,
-            success: res => {
-              dd.navigateBack({
-                delta: 1
-              })
-            }
+            duration: 2000
           });
         }
       }
     });
   },
-  //点击确认到达
-  showModel(){
-    this.setData({
+  //点击某一条的删除
+  deletes(e) {
+    dd.confirm({
+      title: '提示',
+      content: '确认删除该包裹吗？',
+      confirmButtonText: '确认',
+      cancelButtonText: '取消',
+      success: (result) => {
+        if (result.confirm == true) {
+          dd.httpRequest({
+            url: getApp().globalData.baseurl + 'car/delpackage',
+            method: 'GET',
+            data: {
+              packageId: e.currentTarget.dataset.id,
+              carId: this.data.code,
+            },
+            dataType: 'json',
+            success: (res) => {
+              var data = res.data;
+              if (data.code == 1) {
+                dd.showToast({
+                  type: 'none',
+                  content: "删除成功",
+                  duration: 1000,
+                  success: () => {
+                    let index = e.currentTarget.dataset.index;
+                    let arr = this.data.packageList;
+                    arr.splice(index, 1);
+                    this.setData({
+                      packageList: arr
+                    });
+                  }
+                });
+              } else {
+                dd.showToast({
+                  type: 'none',
+                  content: data.msg,
+                  duration: 2000
+                });
+              }
+            }
+          });
+        } else {
+          dd.showToast({
+            type: 'none',
+            content: "取消删除",
+            duration: 2000
+          });
+        };
+      },
+    });
+  },
+  //点击完成
+  goIndex() {
+    if (this.data.packageList.length == 0) {
+      dd.showToast({
+        type: 'none',
+        content: "一个包裹都没有",
+        duration: 2000
+      })
+    } else {
+      this.setData({
         isModel: true
       });
+    }
   },
-   //点击上传图片
+  //点击上传图片
   uploadImg() {
     dd.chooseImage({
       count: 1,
@@ -70,7 +171,7 @@ Page({
       imgSrc: ""
     });
   },
-  //确认到达
+  //确认取货
   claim() {
     if (this.data.imgSrc == "") {
       dd.showToast({
@@ -92,7 +193,7 @@ Page({
           let data = JSON.parse(res.data);
           if (data.code == '1') {
             //取货
-            this.ok(data.img_url);
+            this.getHuo(data.img_url);
           } else {
             dd.showToast({
               type: 'none',
@@ -104,18 +205,21 @@ Page({
       });
     }
   },
-  //提交确认到达
-  ok(url) {
-    dd.showLoading({
-      content: '正在提交，请稍后...'
+  //取货
+  getHuo(url) {
+    let arr = [];
+    this.data.packageList.map(item => {
+      arr.push(item.id);
     });
+    let obj = {
+      img_url: url,
+      package_ids: arr.join("_"),
+      get_type: this.data.type == '1' ? 3 : 2
+    }
     dd.httpRequest({
-      url: getApp().globalData.baseurl + 'arrive/confirmarrive',
-      method: 'GET',
-      data: {
-        packageId: this.data.packageId,
-        img_url: url
-      },
+      url: getApp().globalData.baseurl + 'supplier/get_complete',
+      method: 'POST',
+      data: obj,
       dataType: 'json',
       success: (res) => {
         dd.hideLoading();
@@ -123,7 +227,7 @@ Page({
         if (data.code == 1) {
           dd.showToast({
             type: 'none',
-            content: "已到达",
+            content: "已取货",
             duration: 2000,
             success: () => {
               dd.navigateBack({
@@ -141,7 +245,7 @@ Page({
       }
     });
   },
-  //取消
+  //取消取货
   qu() {
     this.setData({
       imgSrc: "",
@@ -149,4 +253,5 @@ Page({
       isModel: false
     });
   }
+
 });

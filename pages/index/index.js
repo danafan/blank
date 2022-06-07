@@ -66,7 +66,7 @@ Page({
         break;
       case "1-4":
         //送达
-        this.scan("1-4");
+        dd.navigateTo({ url: '/pages/index/reach/reach' });
         break;
       case "2-1":
         //商品退回
@@ -145,18 +145,6 @@ Page({
               });
             } else {
               dd.navigateTo({ url: '/pages/index/getoff/getoff' });
-            }
-            break;
-          case "1-4":
-            //到达
-            if (isGoods == true || codeObj.type != "1") {
-              dd.showToast({
-                type: 'none',
-                content: "请扫描包裹二维码",
-                duration: 2000
-              });
-            } else {
-              dd.navigateTo({ url: '/pages/index/reach/reach' });
             }
             break;
           case "2-1":
