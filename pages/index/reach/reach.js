@@ -1,14 +1,19 @@
 Page({
   data: {
+    packageId: "",
     packageList: [],      //当前车辆的包裹列表   
     isModel: false,        //默认上传凭证弹框不显示
     imgSrc: "",            //展示的图片地址
     imgObj: {},            //可传递的图片对象   
   },
   onLoad() {
+    //扫码获取的包裹id
     this.setData({
-      packageList: []
+      packageList: [],
+      packageId: getApp().globalData.codeObj.id
     })
+    //获取包裹信息
+    this.addPackage();
   },
   //扫描包裹二维码增加包裹
   scan() {
@@ -31,8 +36,11 @@ Page({
               duration: 2000
             });
           } else {
+            this.setData({
+              packageId: codeObj.id
+            })
             //添加包裹
-            this.addPackage(codeObj);
+            this.addPackage();
           }
         } else {
           dd.showToast({
@@ -57,13 +65,13 @@ Page({
     return aa;
   },
   //添加包裹
-  addPackage(codeObj) {
+  addPackage() {
     //传递包裹id和type添加包裹
     dd.httpRequest({
       url: getApp().globalData.baseurl + 'arrive/getpackageinfo',
       method: 'GET',
       data: {
-        packageId: codeObj.id,
+        packageId: this.data.packageId,
         type: "1"
       },
       dataType: 'json',
