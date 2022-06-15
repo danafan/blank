@@ -4,7 +4,9 @@ Page({
     packageList: [],      //当前车辆的包裹列表   
     isModel: false,        //默认上传凭证弹框不显示
     imgSrc: "",            //展示的图片地址
-    imgObj: {},            //可传递的图片对象   
+    imgObj: {},            //可传递的图片对象 
+    signature: "",         //获取到的签名图片地址
+    showSign: false,
   },
   onLoad() {
     //扫码获取的包裹id
@@ -140,9 +142,15 @@ Page({
         }
       });
       if (isSet == true) {
-        this.setData({
-          isModel: true
-        });
+        if (this.data.imgSrc == '') {
+          this.setData({
+            isModel: true
+          });
+        } else {
+          //确认取货
+          this.claim();
+        }
+
       } else {
         dd.confirm({
           title: '提示',
@@ -151,9 +159,8 @@ Page({
           cancelButtonText: '取消',
           success: (result) => {
             if (result.confirm == true) {
-              this.setData({
-                isModel: true
-              });
+              //确认取货
+              this.claim();
             } else {
               dd.showToast({
                 type: 'none',
@@ -185,6 +192,34 @@ Page({
       imgObj: {},
       imgSrc: ""
     });
+  },
+  //去签字
+  goSign() {
+    if (this.data.imgSrc == '') {
+      dd.showToast({
+        type: 'none',
+        content: "请上传到达凭证",
+        duration: 2000
+      });
+    } else {
+      this.setData({
+        isModel: false,
+        showSign: true
+      })
+    }
+  },
+  //获取签名图片
+  onGetImgUrl(type, img_url) {
+    if (type == '2') {
+      this.setData({
+        signature: img_url
+      });
+      //确认取货
+      this.claim();
+    }
+    this.setData({
+      showSign: false
+    })
   },
   //确认取货
   claim() {
@@ -228,6 +263,7 @@ Page({
     });
     let obj = {
       img_url: url,
+      sign_img: this.data.signature,
       packageId: arr.join(","),
     }
     dd.httpRequest({

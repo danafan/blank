@@ -1,3 +1,7 @@
 {
-    "defaultTitle": ""
+    "defaultTitle": "",
+    "usingComponents":{
+      "signature":"../../../components/signature/signature"
+    }
+    
 }

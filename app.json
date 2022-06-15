@@ -1,5 +1,5 @@
 {
-  "pages": [
+  "pages": [ 
     "pages/index/index",
     "pages/index/takingGoods/takingGoods",
     "pages/index/package/package",
@@ -21,5 +21,9 @@
     "pages/index/getPackageRecord/getPackageRecord",
     "pages/index/allPackage/allPackage",
     "pages/index/returnRoom/returnRoom"
-  ]
+  ],
+  "window":{
+    "pullRefresh":false,
+    "allowsBounceVertical":"NO"
+  }
 }

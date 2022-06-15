@@ -1,0 +1,8 @@
+<view class="signature-modal">
+  <view class="modal-bottom">
+    <view class="button clear" onTap="closeFn">取消</view>
+    <view class="button clear" onTap="clearCanvas">清除</view>
+    <view class="button upload" onTap="saveToImage">上传</view>
+  </view>
+  <canvas id="signature" class="modal-canvas" onTouchStart="scaleStart" onTouchMove="scaleMove"></canvas>
+</view>

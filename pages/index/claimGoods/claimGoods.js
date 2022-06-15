@@ -6,6 +6,8 @@ Page({
     isModel: false,        //默认上传凭证弹框不显示
     imgSrc: "",            //展示的图片地址
     imgObj: {},            //可传递的图片对象
+    signature: "",         //获取到的签名图片地址
+    showSign: false,
   },
   onLoad(e) {
     this.setData({
@@ -140,9 +142,18 @@ Page({
         duration: 2000
       })
     } else {
-      this.setData({
-        isModel: true
-      });
+      if (this.data.imgSrc == '') {
+        this.setData({
+          isModel: true
+        });
+      } else if (this.data.signature == '') {
+        this.setData({
+          showSign: true
+        });
+      } else {
+        //确认取货
+        this.claim();
+      }
     }
   },
   //点击上传图片
@@ -163,6 +174,34 @@ Page({
       imgObj: {},
       imgSrc: ""
     });
+  },
+  //去签字
+  goSign() {
+    if (this.data.imgSrc == '') {
+      dd.showToast({
+        type: 'none',
+        content: "请上传到达凭证",
+        duration: 2000
+      });
+    } else {
+      this.setData({
+        isModel: false,
+        showSign: true
+      })
+    }
+  },
+  //获取签名图片
+  onGetImgUrl(type, img_url) {
+    if (type == '2') {
+      this.setData({
+        signature: img_url
+      });
+      //确认取货
+      this.claim();
+    }
+    this.setData({
+      showSign: false
+    })
   },
   //确认取货
   claim() {
@@ -199,13 +238,14 @@ Page({
     }
   },
   //取货
-  getHuo(url) {
+  getHuo(img_url) {
     let arr = [];
     this.data.packageList.map(item => {
       arr.push(item.id);
     });
     let obj = {
-      img_url: url,
+      img_url: img_url,
+      sign_img:this.data.signature,
       package_ids: arr.join("_"),
       get_type: this.data.type == '1' ? 3 : 2
     }

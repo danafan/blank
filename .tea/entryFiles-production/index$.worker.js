@@ -22,6 +22,7 @@ self.$global = AFAppX.$global;
 
 function success() {
 require('../../app');
+require('../../pages/index/signature/signature');
 require('../../pages/index/index');
 require('../../pages/index/takingGoods/takingGoods');
 require('../../pages/index/package/package');

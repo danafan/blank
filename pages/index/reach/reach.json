@@ -1,3 +1,6 @@
 {
-  "defaultTitle": "送达"
+  "defaultTitle": "送达",
+   "usingComponents":{
+      "signature":"../../../components/signature/signature"
+    }
 }
