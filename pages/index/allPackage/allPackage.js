@@ -12,11 +12,47 @@ Page({
     isFocus: false,        //默认供应商下拉框不展示
     searchList: [],        //展示的供应商列表（包括模糊查询）
     supplier: "",          //供应商展示的内容
-    remark:"",
+    remark: "",
     id: "",                //选中的供应商id
     isOver: true,          //为true时可点击完成打包
     goodsItemCode: "",      //扫描之后临时的商品code
     goodsItemNum: 1,      //扫描之后临时的商品数量
+    wms_list: [],           //仓库列表
+    wms_index: 0,
+  },
+  onLoad() {
+    //获取所有仓库列表
+    this.getWmsList();
+  },
+  //获取所有仓库列表
+  getWmsList() {
+    dd.httpRequest({
+      url: getApp().globalData.baseurl.split('/api/')[0] + '/ajax_wms',
+      method: 'GET',
+      data: {},
+      dataType: 'json',
+      success: (res) => {
+        var data = res.data;
+        if (data.code == 1) {
+          this.setData({
+            wms_list: data.data,
+            wms_index: data.data.findIndex(item => { return item.is_default == 1 })
+          })
+        } else {
+          dd.showToast({
+            type: 'none',
+            content: data.msg,
+            duration: 2000
+          });
+        }
+      }
+    });
+  },
+  //监听仓库
+  bindObjPickerChange(e) {
+    this.setData({
+      wms_index: e.detail.value
+    })
   },
   //点击提示的我知道了
   ikonw() {
@@ -87,7 +123,7 @@ Page({
         dataType: 'json',
         success: (res) => {
           this.setData({
-            code:this.data.goodsItemCode,
+            code: this.data.goodsItemCode,
             goodsItemCode: ""
           })
           var data = res.data;
@@ -109,6 +145,9 @@ Page({
                 }
               });
             } else {
+              // this.setData({
+              //       isModel: true
+              //     })
               dd.vibrateShort({
                 success: () => {
                   this.setData({
@@ -150,8 +189,8 @@ Page({
       });
     }
   },
-   //监听备注
-  checkRemark(e){
+  //监听备注
+  checkRemark(e) {
     this.setData({
       remark: e.detail.value
     });
@@ -250,8 +289,9 @@ Page({
         data: {
           data: JSON.stringify(this.data.goodsList),
           supplier_id: this.data.id,
-          remark:this.data.remark,
+          remark: this.data.remark,
           printer: getApp().globalData.printer,
+          wms_id: this.data.wms_list[this.data.wms_index].wms_co_id
         },
         dataType: 'json',
         success: (res) => {

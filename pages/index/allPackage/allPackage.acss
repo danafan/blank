@@ -153,6 +153,7 @@
   border: 1px solid #666;
   height: 80rpx;
 }
+
 .model_content button {
   margin-top: 20rpx;
   margin-bottom: 10rpx;
@@ -211,6 +212,7 @@
   height: 80rpx;
   font-size: 30rpx;
 }
+
 .textarea{
   border: 1px solid #f4f4f4;
   width: 100%;

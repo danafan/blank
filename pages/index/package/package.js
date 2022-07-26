@@ -11,14 +11,18 @@ Page({
     isFocus: false,        //默认供应商下拉框不展示
     searchList: [],        //展示的供应商列表（包括模糊查询）
     supplier: "",          //供应商展示的内容
-    remark:"",             //备注
+    remark: "",             //备注
     id: "",                //选中的供应商id
     type: 1,                //1:第一次打包；0:商家不一致确认之后第二次打包
+    wms_list: [],           //仓库列表
+    wms_index: 0,
     isOver: true,           //为true时可点击完成打包
   },
   onLoad() {
     //判断首页是否意外退出
     this.auto();
+    //获取所有仓库列表
+    this.getWmsList();
   },
   //点击提示的我知道了
   ikonw() {
@@ -51,6 +55,30 @@ Page({
       }
     });
   },
+  //获取所有仓库列表
+  getWmsList() {
+    dd.httpRequest({
+      url: getApp().globalData.baseurl.split('/api/')[0] + '/ajax_wms',
+      method: 'GET',
+      data: {},
+      dataType: 'json',
+      success: (res) => {
+        var data = res.data;
+        if (data.code == 1) {
+         this.setData({
+           wms_list:data.data,
+           wms_index:data.data.findIndex(item => {return item.is_default == 1})
+         })
+        } else {
+          dd.showToast({
+            type: 'none',
+            content: data.msg,
+            duration: 2000
+          });
+        }
+      }
+    });
+  },
   //监听唯一码输入框输入
   bindKeyInput1(e) {
     this.setData({
@@ -58,7 +86,7 @@ Page({
     });
   },
   //监听备注
-  checkRemark(e){
+  checkRemark(e) {
     this.setData({
       remark: e.detail.value
     });
@@ -199,30 +227,36 @@ Page({
       isFocus: true
     });
   },
+  //监听仓库
+  bindObjPickerChange(e) {
+    this.setData({
+      wms_index: e.detail.value
+    })
+  },
   //监听供应商输入
   bindKeyInput(e) {
     dd.httpRequest({
-        url: getApp().globalData.baseurl + 'package/ajaxsupplier',
-        method: 'GET',
-        data: {
-          name: e.detail.value
-        },
-        dataType: 'json',
-        success: (res) => {
-          var data = res.data;
-          if (data.code == 1) {
-            this.setData({
-              searchList: data.data
-            });
-          } else {
-            dd.showToast({
-              type: 'none',
-              content: data.msg,
-              duration: 2000
-            });
-          }
+      url: getApp().globalData.baseurl + 'package/ajaxsupplier',
+      method: 'GET',
+      data: {
+        name: e.detail.value
+      },
+      dataType: 'json',
+      success: (res) => {
+        var data = res.data;
+        if (data.code == 1) {
+          this.setData({
+            searchList: data.data
+          });
+        } else {
+          dd.showToast({
+            type: 'none',
+            content: data.msg,
+            duration: 2000
+          });
         }
-      });
+      }
+    });
   },
   //点击选中某一个供应商
   selItem(e) {
@@ -249,7 +283,7 @@ Page({
           dd.navigateTo({ url: '/pages/index/printer/printer' });
         }
       });
-    } else  if (this.data.supplier == "") {
+    } else if (this.data.supplier == "") {
       dd.showToast({
         type: 'none',
         content: '请选择供应商',
@@ -268,7 +302,8 @@ Page({
           time: this.data.packageObj.time,
           operator: this.data.packageObj.operator,
           choose: getApp().globalData.printer,
-          remark:this.data.remark,
+          remark: this.data.remark,
+          wms_id: this.data.wms_list[this.data.wms_index].wms_co_id,
           type: this.data.type
         },
         dataType: 'json',

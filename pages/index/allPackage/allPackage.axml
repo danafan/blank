@@ -1,10 +1,10 @@
 <view class="package">
   <view class="top">
-   <view class="labels">
-      <view class="onlyCode">商品编码：                                                                      
+    <view class="labels">
+      <view class="onlyCode">商品编码：
         <input onInput="bindKeyInput1" onConfirm="searchBtn" focus="{{isfocus}}" value="{{goodsItemCode}}" onBlur="onblur"/>
       </view>
-      <view class="title">商品列表                                                              
+      <view class="title">商品列表
       </view>
     </view>
     <view class="list" a:if="{{goodsList.length > 0}}">
@@ -43,9 +43,9 @@
   <!--提示弹框 -->
   <view class="toast" a:if="{{toast}}">
     <view class="box">
-      <view class="toastCon">        请用PDA扫描                        
+      <view class="toastCon">        请用PDA扫描
       </view>
-      <view class="know" onTap="ikonw">我知道了                  
+      <view class="know" onTap="ikonw">我知道了
       </view>
     </view>
   </view>
@@ -66,9 +66,16 @@
           </view>
         </view>
         <view class="infoItem">
-          <view class="infoName">备注：                                                    
+          <view class="infoName">仓库：
           </view>
-          <input class="textarea" type="text" placeholder="请输入备注" onInput="checkRemark" value="{{remark}}"/>                                         
+          <picker onChange="bindObjPickerChange" value="{{wms_index}}" range="{{wms_list}}" range-key="name">
+            <view>{{wms_list[wms_index].name}}</view>
+          </picker>
+        </view>
+        <view class="infoItem">
+          <view class="infoName">备注：
+          </view>
+          <input class="textarea" type="text" placeholder="请输入备注" onInput="checkRemark" value="{{remark}}"/>
         </view>
       </view>
       <button class="ok" type="primary" catchTap="ok">确认打包
