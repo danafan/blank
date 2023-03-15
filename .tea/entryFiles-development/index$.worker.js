@@ -30,6 +30,7 @@ require('../../pages/index/void/void');
 require('../../pages/index/packDetail/packDetail');
 require('../../pages/index/packageDetail/getdetail');
 require('../../pages/index/carDetail/cardetail');
+require('../../pages/index/allRecoed/allRecoed');
 require('../../pages/index/record/record');
 require('../../pages/index/sign/sign');
 require('../../pages/index/allPackage/allPackage');
@@ -40,6 +41,7 @@ require('../../pages/index/printer/printer');
 require('../../pages/index/getPackageRecord/getPackageRecord');
 require('../../pages/index/allPackage/allPackage');
 require('../../pages/index/returnRoom/returnRoom');
+require('../../pages/index/allRecoed/allRecoed');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }

@@ -11,12 +11,12 @@ Page({
     isFocus: false,        //默认供应商下拉框不展示
     searchList: [],        //展示的供应商列表（包括模糊查询）
     supplier: "",          //供应商展示的内容
-    remark: "",             //备注
+    remark: "",            //备注
     id: "",                //选中的供应商id
-    type: 1,                //1:第一次打包；0:商家不一致确认之后第二次打包
-    wms_list: [],           //仓库列表
+    type: 1,               //1:第一次打包；0:商家不一致确认之后第二次打包
+    wms_list: [],          //仓库列表
     wms_index: 0,
-    isOver: true,           //为true时可点击完成打包
+    isOver: true,          //为true时可点击完成打包
   },
   onLoad() {
     //判断首页是否意外退出

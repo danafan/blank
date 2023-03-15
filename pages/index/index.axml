@@ -66,6 +66,11 @@
       <view>批量打包                          
       </view>
     </view>
+    <view class="item" data-type="2-8" onTap="go" a:if="{{is_all_package == '1'}}">
+      <image src="../../imgs/all_record_icon.png"/>
+      <view>全部记录                          
+      </view>
+    </view>
   </view>
   <view class="items">
     <view class="item" data-type="3-1" onTap="go">

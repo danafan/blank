@@ -3,10 +3,12 @@ Page({
     packageObj: {},              //包裹详情
     showCate: false,             //默认凭证图片不展示
     id: "",                      //包裹id
+    type:'',                     //1:显示重新打印；2:不显示
   },
   onLoad(e) {
     this.setData({
-      id: e.id
+      id: e.id,
+      type:e.type
     });
     //获取包裹详情
     this.getPackage(e.id);

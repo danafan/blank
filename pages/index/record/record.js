@@ -156,6 +156,6 @@ Page({
   //点击查看详情
   detail(e) {
     let id = e.currentTarget.dataset.id;
-    dd.navigateTo({ url: '/pages/index/record/detail/detail?id=' + id });
+    dd.navigateTo({ url: '/pages/index/record/detail/detail?type=1&id=' + id });
   }
 })

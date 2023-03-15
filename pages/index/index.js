@@ -1,26 +1,27 @@
 Page({
   data: {
-    username: "",     //用户名
+    username: "",         //用户名
+    is_all_package:'0',   //是否显示全部记录(0:不显示；1:显示)
   },
   onLoad() {
     //钉钉获取用户信息
     this.dingInfo();
-    updateManager = dd.getUpdateManager();
-    updateManager.onCheckForUpdate(function (res) {
-      if (res.hasUpdate) {
-        updateManager.onUpdateReady(function (ret) {
-          dd.confirm({
-            title: '更新提示',
-            content: `新版本${ret.version}已经准备好，是否重启应用？`,
-            success: function (res) {
-              if (res.confirm) {
-                updateManager.applyUpdate()
-              }
-            }
-          })
-        })
-      }
-    })
+    // updateManager = dd.getUpdateManager();
+    // updateManager.onCheckForUpdate(function (res) {
+    //   if (res.hasUpdate) {
+    //     updateManager.onUpdateReady(function (ret) {
+    //       dd.confirm({
+    //         title: '更新提示',
+    //         content: `新版本${ret.version}已经准备好，是否重启应用？`,
+    //         success: function (res) {
+    //           if (res.confirm) {
+    //             updateManager.applyUpdate()
+    //           }
+    //         }
+    //       })
+    //     })
+    //   }
+    // })
   },
   //钉钉获取用户信息
   dingInfo() {
@@ -46,9 +47,12 @@ Page({
         dd.hideLoading();
         if (res.data.code == 1) {
           let username = res.data.data.name;
+          let is_all_package = res.data.data.is_all_package;
           getApp().globalData.username = username;
+          getApp().globalData.is_all_package = is_all_package;
           this.setData({
-            username: username
+            username: username,
+            is_all_package:is_all_package
           });
         } else {
           dd.alert({
@@ -111,6 +115,10 @@ Page({
       case "2-7":
         //批量打包
         dd.navigateTo({ url: '/pages/index/allPackage/allPackage' });
+        break;
+      case "2-8":
+        //全部记录
+        dd.navigateTo({ url: '/pages/index/allRecoed/allRecoed' });
         break;
       case "3-1":
         //快递取货

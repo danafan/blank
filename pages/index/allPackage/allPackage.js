@@ -16,7 +16,7 @@ Page({
     id: "",                //选中的供应商id
     isOver: true,          //为true时可点击完成打包
     goodsItemCode: "",      //扫描之后临时的商品code
-    goodsItemNum: 1,      //扫描之后临时的商品数量
+    goodsItemNum: 1,        //扫描之后临时的商品数量
     wms_list: [],           //仓库列表
     wms_index: 0,
   },

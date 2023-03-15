@@ -1,5 +1,5 @@
 {
-  "pages": [ 
+  "pages": [
     "pages/index/index",
     "pages/index/takingGoods/takingGoods",
     "pages/index/package/package",
@@ -11,6 +11,7 @@
     "pages/index/packDetail/packDetail",
     "pages/index/packageDetail/getdetail",
     "pages/index/carDetail/cardetail",
+    "pages/index/allRecoed/allRecoed",
     "pages/index/record/record",
     "pages/index/sign/sign",
     "pages/index/allPackage/allPackage",
@@ -20,10 +21,11 @@
     "pages/index/printer/printer",
     "pages/index/getPackageRecord/getPackageRecord",
     "pages/index/allPackage/allPackage",
-    "pages/index/returnRoom/returnRoom"
+    "pages/index/returnRoom/returnRoom",
+    "pages/index/allRecoed/allRecoed"
   ],
-  "window":{
-    "pullRefresh":false,
-    "allowsBounceVertical":"NO"
+  "window": {
+    "pullRefresh": false,
+    "allowsBounceVertical": "NO"
   }
 }
