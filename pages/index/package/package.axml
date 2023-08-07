@@ -4,7 +4,13 @@
       <view class="onlyCode">    唯一码：
         <input onInput="bindKeyInput1" onConfirm="searchBtn" focus="{{isfocus}}" value="{{code}}" onBlur="onblur"/>
       </view>
-      <view class="title">商品列表
+      <view class="title">
+        <view>
+          商品列表
+        </view>
+        <view>
+          共{{goodsList.length}}件
+        </view>
       </view>
     </view>
     <view class="list" a:if="{{goodsList.length > 0}}">
