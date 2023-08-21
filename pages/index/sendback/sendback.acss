@@ -24,10 +24,12 @@
 
 .sku {
     flex: 1;
-    border-bottom: 1px solid #f4f4f4;
     height: 60rpx;
     line-height: 60rpx;
     color: #999;
+}
+.border_bottom{
+  border-bottom: 1px solid #f4f4f4;
 }
 .num_input{
   border: 1px solid #cccccc;
