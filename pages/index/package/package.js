@@ -1,7 +1,7 @@
 Page({
   data: {
     toast: true,           //默认进入页面弹框展示
-    selectSupplier:true,   //选择供应商
+    selectSupplier:false,   //选择供应商
     isfocus: false,        //默认唯一码获取焦点
     isBall: false,         //默认确认包裹信息弹框不显示
     dataObj: {},           //添加商品返回的供应商信息
@@ -42,13 +42,24 @@ Page({
         var data = res.data;
         if (data.code == 0) {
           this.setData({
-            dataObj: data.data,
+            // dataObj: data.data,
             package: data.data.package_id,
             goodsList: data.goods
           });
+          if(data.data.gys){
+            this.setData({
+              supplier: data.data.gys.supplier_name,
+              id: data.data.gys.supplier_id
+            });
+          }else{
+            this.setData({
+              selectSupplier:true
+            });
+          }
         } else {
           this.setData({
-            dataObj: {},
+            selectSupplier:true,
+            // dataObj: {},
             package: "",
             goodsList: []
           });
@@ -126,7 +137,7 @@ Page({
         });
         if (data.code == 1) {
           this.setData({
-            dataObj: data.data,
+            // dataObj: data.data,
             package: data.data.package_id,
             goodsList: data.goods
           });
@@ -407,8 +418,8 @@ Page({
                   });
                   this.setData({
                     selectSupplier:true,
-                    supplier: e.target.dataset.item.supplier_name,
-                    id: e.target.dataset.item.supplier_id,
+                    supplier: '',
+                    id: '',
                   })
                   //刷新列表
                   this.auto();
