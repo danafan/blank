@@ -1,6 +1,7 @@
 Page({
   data: {
     toast: true,           //默认进入页面弹框展示
+    selectSupplier:true,   //选择供应商
     isfocus: false,        //默认唯一码获取焦点
     isBall: false,         //默认确认包裹信息弹框不显示
     dataObj: {},           //添加商品返回的供应商信息
@@ -106,6 +107,7 @@ Page({
     })            //完成打包按钮不可点击
     var obj = {
       uniqNum: this.data.code,
+      supplier_id:this.data.id,
       type: 1
     }
     if (this.data.package != "") {
@@ -159,7 +161,6 @@ Page({
         });
       }
     });
-
   },
   //保证唯一码input一直输入状态
   onblur() {
@@ -271,6 +272,20 @@ Page({
     this.setData({
       isFocus: false
     });
+  },
+  //点击确认选择当前供应商
+  checkSupplier(){
+    if (this.data.supplier == "") {
+      dd.showToast({
+        type: 'none',
+        content: '请选择供应商',
+        duration: 2000
+      });
+    }else{
+      this.setData({
+        selectSupplier: false
+      })
+    }
   },
   //确认打包
   ok() {
@@ -390,6 +405,11 @@ Page({
                     content: "已重置",
                     duration: 2000
                   });
+                  this.setData({
+                    selectSupplier:true,
+                    supplier: e.target.dataset.item.supplier_name,
+                    id: e.target.dataset.item.supplier_id,
+                  })
                   //刷新列表
                   this.auto();
                 } else {

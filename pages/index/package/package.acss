@@ -49,6 +49,17 @@
   align-items: center;
   justify-content: space-between;
 }
+.mr30{
+  margin-right: 30rpx;
+}
+.flex{
+  display: flex;
+  align-items: center;
+}
+
+.supplier_name{
+  color: #03abff;
+}
 
 .list {
   width: 100%;
