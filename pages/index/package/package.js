@@ -14,6 +14,7 @@ Page({
     supplier: "",          //供应商展示的内容
     remark: "",            //备注
     id: "",                //选中的供应商id
+    is_verify:1,           //是否验证
     type: 1,               //1:第一次打包；0:商家不一致确认之后第二次打包
     wms_list: [],          //仓库列表
     wms_index: 0,
@@ -119,6 +120,7 @@ Page({
     var obj = {
       uniqNum: this.data.code,
       supplier_id:this.data.id,
+      is_verify:this.data.is_verify,
       type: 1
     }
     if (this.data.package != "") {
@@ -298,6 +300,12 @@ Page({
       })
     }
   },
+  //修改是否验证
+  radioChange(e){
+    this.setData({
+      is_verify:e.detail.value
+    })
+  },
   //确认打包
   ok() {
     if (getApp().globalData.printer == "") {
@@ -419,6 +427,7 @@ Page({
                   this.setData({
                     selectSupplier:true,
                     supplier: '',
+                    is_verify:1,
                     id: '',
                   })
                   //刷新列表

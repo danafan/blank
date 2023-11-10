@@ -63,6 +63,20 @@
             </view>
           </view>
         </view>
+        <view class="infoItem">
+          <view class="infoName">是否验证：
+          </view>
+          <radio-group class="radio-group" onChange="radioChange" name="lib">
+            <label class="radio mr30">
+              <radio value="1" checked="{{true}}"/>
+              <text class="radio-text">是</text>
+            </label>
+            <label class="radio">
+              <radio value="0" checked="{{false}}"/>
+              <text class="radio-text">否</text>
+            </label>
+          </radio-group>
+        </view>
       </view>
       <button class="ok" type="primary" catchTap="checkSupplier">确认当前供应商
       </button>
@@ -74,16 +88,6 @@
       <view class="conTitle">确认包裹信息
       </view>
       <view class="info">
-        <!-- <view class="infoItem">
-          <view class="infoName">供应商：
-          </view>
-          <view class="select">
-            <input type="text" placeholder="请选择供应商" onFocus="supOnfocus" onBlur="supOnblur" onInput="bindKeyInput" value="{{supplier}}"/>
-            <view class="selectBox" a:if="{{isFocus}}">
-              <view class="selItem" a:for="{{searchList}}" data-item="{{item}}" onTap="selItem">{{item.supplier_name}}</view>
-            </view>
-          </view>
-        </view> -->
         <view class="infoItem">
           <view class="infoName">仓库：
           </view>
