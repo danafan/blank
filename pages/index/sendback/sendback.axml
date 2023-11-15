@@ -13,6 +13,15 @@
         <view class="sku">{{objectArray[arrIndex].name}}</view>
       </picker>
   </view>
+  <view class="skuBox">
+    <view class="label">供应商：</view>
+    <view class="sku" a:if="{{supplierArray.length == 1}}">
+      {{supplierArray[supplierIndex].supplier_name}}
+    </view>
+    <picker onChange="changeSupplier" value="{{supplierIndex}}" range="{{supplierArray}}" range-key="supplier_name" a:else>
+      <view class="sku">{{supplierArray[supplierIndex].supplier_name}}</view>
+    </picker>
+</view>
     <view class="cause">
         <view class="title">退错原因</view>
         <textarea class="textarea" maxlength="-1" placeholder="请输入退错原因" onInput="inputKey"/>
