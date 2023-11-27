@@ -36,6 +36,11 @@
       <view>商品退回                         
       </view>
     </view>
+    <view class="item" data-type="2-9" onTap="go">
+      <image src="../../imgs/all_back.png"/>
+      <view>批量退回                         
+      </view>
+    </view>
     <view class="item" data-type="2-5" onTap="go">
       <image src="../../imgs/void.png"/>
       <view>包裹作废                         

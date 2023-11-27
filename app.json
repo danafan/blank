@@ -22,7 +22,8 @@
     "pages/index/getPackageRecord/getPackageRecord",
     "pages/index/allPackage/allPackage",
     "pages/index/returnRoom/returnRoom",
-    "pages/index/allRecoed/allRecoed"
+    "pages/index/allRecoed/allRecoed",
+    "pages/index/allBack/allBack"
   ],
   "window": {
     "pullRefresh": false,

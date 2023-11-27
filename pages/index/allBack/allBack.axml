@@ -1,0 +1,186 @@
+<view class="package">
+  <view class="top">
+    <view class="title">
+      <view>
+        商品列表
+      </view>
+      <view class="flex">
+        <view class="mr30">
+          共{{goodsList.length}}件
+        </view>
+        <view class="supplier_name">
+          供应商：{{supplier}}
+        </view>
+      </view>
+    </view>
+    <view a:if="{{goodsList.length > 0}}" class="list">
+      <view a:for="{{goodsList}}" class="goodsItem">
+        <view class="goodsCode">
+          {{item.unique_no}}
+        </view>
+        <view class="row_right flex">
+          <view class="number">
+            {{item.num}}件
+          </view>
+          <image
+            src="../../../imgs/delete_goods.png"
+            data-index="{{index}}"
+            onTap="deleteGoods"
+            class="delete_goods"
+          />
+        </view>
+      </view>
+    </view>
+    <view a:else class="null">
+      <image src="../../../imgs/kong.png" />
+      <view>还没有商品哦
+      </view>
+    </view>
+  </view>
+  <view class="buts">
+    <button type="warn" onTap="scan">
+      扫一扫
+    </button>
+    <button type="primary" onTap="showBall">
+      确认退货
+    </button>
+    <view class="reset" onTap="reset">
+      重置
+    </view>
+  </view>
+  <!-- 选择供应商弹窗 -->
+  <view a:if="{{selectSupplier}}" class="ball">
+    <view class="content" catchTap>
+      <view class="conTitle">
+        录入供应商
+      </view>
+      <view class="info">
+        <view class="infoItem">
+          <view class="infoName">
+            供应商：
+          </view>
+          <view class="select">
+            <input
+              type="text"
+              placeholder="请选择供应商"
+              onFocus="supOnfocus"
+              onBlur="supOnblur"
+              onInput="bindKeyInput"
+              value="{{supplier}}"
+            />
+            <view a:if="{{isFocus}}" class="selectBox">
+              <view
+                a:for="{{searchList}}"
+                class="selItem"
+                data-item="{{item}}"
+                onTap="selItem"
+              >
+                {{item.supplier_name}}
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="infoItem">
+          <view class="infoName">
+            是否验证：
+          </view>
+          <radio-group class="radio-group" onChange="radioChange" name="lib">
+            <label class="radio mr30">
+              <radio value="1" checked="{{true}}" />
+              <text class="radio-text">是</text>
+            </label>
+            <label class="radio">
+              <radio value="0" checked="{{false}}" />
+              <text class="radio-text">否</text>
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <button class="ok" type="primary" catchTap="checkSupplier">
+        确认当前供应商
+      </button>
+    </view>
+  </view>
+  <!-- 输入商品数量弹窗 -->
+  <view a:if="{{initNum}}" class="ball">
+    <view class="content" catchTap>
+      <view class="conTitle">
+        填写数量
+      </view>
+      <view class="info">
+        <view class="infoItem">
+          <view class="infoName">
+            唯一码：
+          </view>
+          <view class="select">{{unique_no}}</view>
+        </view>
+        <view class="infoItem">
+          <view class="infoName">
+            数量：
+          </view>
+          <view class="select">
+            <input
+              type="text"
+              placeholder="请输入数量"
+              onInput="checkNum"
+              value="{{num}}"
+            />
+          </view>
+        </view>
+      </view>
+      <view class="flex jsa">
+        <button type="primary" class="num_but" size="mini" catchTap="addGoods">
+          确认
+        </button>
+        <button type="warn" class="num_but" size="mini" catchTap="numScan">
+          继续扫
+        </button>
+      </view>
+
+    </view>
+  </view>
+  <!-- 确认退货弹框 -->
+  <view a:if="{{isBall}}" class="ball" onTap="closeBall">
+    <view class="content" catchTap>
+      <view class="conTitle">
+        退货信息
+      </view>
+      <view class="info">
+        <view class="infoItem">
+          <view class="infoName">
+            供应商：
+          </view>
+          <view>{{supplier}}</view>
+        </view>
+        <view class="infoItem">
+          <view class="infoName">
+            仓库：
+          </view>
+          <picker
+            onChange="bindObjPickerChange"
+            value="{{wms_index}}"
+            range="{{wms_list}}"
+            range-key="name"
+          >
+            <view>{{wms_list[wms_index].name}}</view>
+          </picker>
+        </view>
+        <view class="infoItem">
+          <view class="remark_label">
+            退回原因：
+          </view>
+          <input
+            class="textarea"
+            type="text"
+            placeholder="请输入退回原因"
+            onInput="checkRemark"
+            value="{{remark}}"
+          />
+        </view>
+      </view>
+      <button class="ok" type="primary" catchTap="ok">
+        确认退货
+      </button>
+    </view>
+  </view>
+</view>

@@ -1,7 +1,7 @@
 Page({
   data: {
-    username: "",         //用户名
-    is_all_package:'0',   //是否显示全部记录(0:不显示；1:显示)
+    username: "", //用户名
+    is_all_package: '0', //是否显示全部记录(0:不显示；1:显示)
   },
   onLoad() {
     //钉钉获取用户信息
@@ -52,7 +52,7 @@ Page({
           getApp().globalData.is_all_package = is_all_package;
           this.setData({
             username: username,
-            is_all_package:is_all_package
+            is_all_package: is_all_package
           });
         } else {
           dd.alert({
@@ -74,11 +74,15 @@ Page({
     switch (type) {
       case "1-1":
         //打包
-        dd.navigateTo({ url: '/pages/index/package/package' });
+        dd.navigateTo({
+          url: '/pages/index/package/package'
+        });
         break;
       case "1-2":
         //装车
-        dd.navigateTo({ url: '/pages/index/truck/truck' });
+        dd.navigateTo({
+          url: '/pages/index/truck/truck'
+        });
         break;
       case "1-3":
         //下车
@@ -98,11 +102,15 @@ Page({
         break;
       case "2-3":
         //我的记录
-        dd.navigateTo({ url: '/pages/index/record/record?type=' + 1 });
+        dd.navigateTo({
+          url: '/pages/index/record/record?type=' + 1
+        });
         break;
       case "2-4":
         //问题包裹
-        dd.navigateTo({ url: '/pages/index/record/record?type=' + 2 });
+        dd.navigateTo({
+          url: '/pages/index/record/record?type=' + 2
+        });
         break;
       case "2-5":
         //包裹作废
@@ -110,15 +118,27 @@ Page({
         break;
       case "2-6":
         //标记异常
-        dd.navigateTo({ url: '/pages/index/sign/sign' });
+        dd.navigateTo({
+          url: '/pages/index/sign/sign'
+        });
         break;
       case "2-7":
         //批量打包
-        dd.navigateTo({ url: '/pages/index/allPackage/allPackage' });
+        dd.navigateTo({
+          url: '/pages/index/allPackage/allPackage'
+        });
         break;
       case "2-8":
         //全部记录
-        dd.navigateTo({ url: '/pages/index/allRecoed/allRecoed' });
+        dd.navigateTo({
+          url: '/pages/index/allRecoed/allRecoed'
+        });
+        break;
+      case "2-9":
+        //批量退回
+        dd.navigateTo({
+          url: '/pages/index/allBack/allBack'
+        });
         break;
       case "3-1":
         //快递取货
@@ -138,7 +158,9 @@ Page({
         break;
       case "4-2":
         //拿货记录
-        dd.navigateTo({ url: '/pages/index/getPackageRecord/getPackageRecord' });
+        dd.navigateTo({
+          url: '/pages/index/getPackageRecord/getPackageRecord'
+        });
         break;
     }
   },
@@ -168,7 +190,9 @@ Page({
                 duration: 2000
               });
             } else {
-              dd.navigateTo({ url: '/pages/index/getoff/getoff' });
+              dd.navigateTo({
+                url: '/pages/index/getoff/getoff'
+              });
             }
             break;
           case "1-4":
@@ -180,7 +204,9 @@ Page({
                 duration: 2000
               });
             } else {
-              dd.navigateTo({ url: '/pages/index/reach/reach' });
+              dd.navigateTo({
+                url: '/pages/index/reach/reach'
+              });
             }
             break;
           case "2-1":
@@ -192,19 +218,27 @@ Page({
                 duration: 2000
               });
             } else {
-              dd.navigateTo({ url: '/pages/index/sendback/sendback' });
+              dd.navigateTo({
+                url: '/pages/index/sendback/sendback'
+              });
             }
             break;
           case "2-2":
             //扫码获取
             if (isGoods == true || (codeObj.type != "1" && codeObj.type != "2")) {
               //扫的是商品码
-              dd.navigateTo({ url: '/pages/index/packDetail/packDetail' });
+              dd.navigateTo({
+                url: '/pages/index/packDetail/packDetail'
+              });
             } else {
               if (codeObj.type == "1") {
-                dd.navigateTo({ url: '/pages/index/packageDetail/getdetail' });
+                dd.navigateTo({
+                  url: '/pages/index/packageDetail/getdetail'
+                });
               } else {
-                dd.navigateTo({ url: '/pages/index/carDetail/cardetail' });
+                dd.navigateTo({
+                  url: '/pages/index/carDetail/cardetail'
+                });
               }
             }
             break;
@@ -217,7 +251,9 @@ Page({
                 duration: 2000
               });
             } else {
-              dd.navigateTo({ url: '/pages/index/void/void' });
+              dd.navigateTo({
+                url: '/pages/index/void/void'
+              });
             }
             break;
           case "3-1":
@@ -229,7 +265,9 @@ Page({
                 duration: 2000
               });
             } else {
-              dd.navigateTo({ url: '/pages/index/claimGoods/claimGoods?type=1' });
+              dd.navigateTo({
+                url: '/pages/index/claimGoods/claimGoods?type=1'
+              });
             }
             break;
           case "3-2":
@@ -241,7 +279,9 @@ Page({
                 duration: 2000
               });
             } else {
-              dd.navigateTo({ url: '/pages/index/claimGoods/claimGoods?type=2' });
+              dd.navigateTo({
+                url: '/pages/index/claimGoods/claimGoods?type=2'
+              });
             }
             break;
           case "3-3":
@@ -253,7 +293,9 @@ Page({
                 duration: 2000
               });
             } else {
-              dd.navigateTo({ url: '/pages/index/returnRoom/returnRoom' });
+              dd.navigateTo({
+                url: '/pages/index/returnRoom/returnRoom'
+              });
             }
             break;
         }
@@ -261,14 +303,16 @@ Page({
     });
   },
   //拿货拍照
-  getPackagePick(){
+  getPackagePick() {
     dd.chooseImage({
       count: 1,
       success: (res) => {
         let imgSrc = res.apFilePaths[0];
-        dd.navigateTo({ url: '/pages/index/takingGoods/takingGoods?imgSrc=' + imgSrc });
+        dd.navigateTo({
+          url: '/pages/index/takingGoods/takingGoods?imgSrc=' + imgSrc
+        });
       },
     });
   }
-  
+
 });
