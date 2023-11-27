@@ -18,6 +18,9 @@ Page({
   onLoad() {
     //获取所有仓库列表
     this.getWmsList();
+    this.setData({
+      goodsList:[]
+    })
   },
   //获取所有仓库列表
   getWmsList() {
@@ -115,23 +118,19 @@ Page({
   scan() {
     dd.scan({
       type: 'qr',
-      success: (res) => {
-        if (res.code.indexOf("type") > -1) {
+      success: (scan_res) => {
+        if (scan_res.code.indexOf("type") > -1) {
           dd.showToast({
             type: 'none',
             content: "请扫描商品二维码",
             duration: 2000
           });
         } else {
-          // this.setData({
-          //   unique_no: res.code,
-          //   initNum: true
-          // })
           dd.httpRequest({
             url: getApp().globalData.baseurl + 'goods/check_code',
             method: 'GET',
             data: {
-              unique_no: res.code,
+              unique_no: scan_res.code,
               check_type:this.data.is_verify,
               supplier_id:this.data.id
             },
@@ -140,7 +139,7 @@ Page({
               var data = res.data;
               if (data.code == 1) {
                 this.setData({
-                  unique_no:res.code,
+                  unique_no:scan_res.code,
                   initNum:true
                 })
               } else {
@@ -199,9 +198,11 @@ Page({
       unique_no: this.data.unique_no,
       num: this.data.num
     }
-    this.data.goodsList.push(goods_obj);
+    let goods_list = this.data.goodsList;
+    goods_list.push(goods_obj);
     this.setData({
       num: 1,
+      goodsList:goods_list,
       initNum: false
     });
     //执行扫一扫
@@ -222,7 +223,6 @@ Page({
       this.setData({
         isBall: true
       })
-      console.log(this.data.goodsList)
     } else {
       dd.showToast({
         type: 'none',
@@ -285,11 +285,8 @@ Page({
             content: data.msg,
             duration: 2000,
             success: () => {
-              this.setData({
-                remark:"",
-                wms_index:1,
-                goodsList:[],
-                isBall:false
+              dd.navigateBack({
+                delta: 1
               })
             }
           });
