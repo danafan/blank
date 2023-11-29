@@ -138,10 +138,22 @@ Page({
             success: (res) => {
               var data = res.data;
               if (data.code == 1) {
+                let goods_obj = {
+                  unique_no: scan_res.code,
+                  num: 1
+                }
+                let goods_list = this.data.goodsList;
+                goods_list.push(goods_obj);
                 this.setData({
-                  unique_no:scan_res.code,
-                  initNum:true
-                })
+                  // num: 1,
+                  // initNum: false,
+                  goodsList: goods_list
+                });
+                this.scan();
+                // this.setData({
+                //   unique_no:scan_res.code,
+                //   initNum:true
+                // })
               } else {
                 dd.showToast({
                   type: 'none',
@@ -156,58 +168,57 @@ Page({
     });
   },
   //监听输入的数量
-  checkNum(e) {
-    this.setData({
-      num: e.detail.value
-    })
-  },
+  // checkNum(e) {
+  //   this.setData({
+  //     num: e.detail.value
+  //   })
+  // },
   //填写数量确认
-  addGoods() {
-    if (this.data.num == '' || this.data.num < 0) {
-      dd.showToast({
-        type: 'none',
-        content: "请填写正确的商品数量~",
-        duration: 2000
-      });
-      return;
-    }
-    let goods_obj = {
-      unique_no: this.data.unique_no,
-      num: this.data.num
-    }
-    let goods_list = this.data.goodsList;
-    goods_list.push(goods_obj);
-    this.setData({
-      num: 1,
-      initNum: false,
-      goodsList: goods_list
-    });
-    console.log(this.data.goodsList)
-  },
+  // addGoods() {
+  //   if (this.data.num == '' || this.data.num < 0) {
+  //     dd.showToast({
+  //       type: 'none',
+  //       content: "请填写正确的商品数量~",
+  //       duration: 2000
+  //     });
+  //     return;
+  //   }
+  //   let goods_obj = {
+  //     unique_no: this.data.unique_no,
+  //     num: this.data.num
+  //   }
+  //   let goods_list = this.data.goodsList;
+  //   goods_list.push(goods_obj);
+  //   this.setData({
+  //     num: 1,
+  //     initNum: false,
+  //     goodsList: goods_list
+  //   });
+  // },
   //填写数量继续扫
-  numScan() {
-    if (this.data.num == '' || this.data.num < 0) {
-      dd.showToast({
-        type: 'none',
-        content: "请填写正确的商品数量~",
-        duration: 2000
-      });
-      return;
-    }
-    let goods_obj = {
-      unique_no: this.data.unique_no,
-      num: this.data.num
-    }
-    let goods_list = this.data.goodsList;
-    goods_list.push(goods_obj);
-    this.setData({
-      num: 1,
-      goodsList:goods_list,
-      initNum: false
-    });
-    //执行扫一扫
-    this.scan();
-  },
+  // numScan() {
+  //   if (this.data.num == '' || this.data.num < 0) {
+  //     dd.showToast({
+  //       type: 'none',
+  //       content: "请填写正确的商品数量~",
+  //       duration: 2000
+  //     });
+  //     return;
+  //   }
+  //   let goods_obj = {
+  //     unique_no: this.data.unique_no,
+  //     num: this.data.num
+  //   }
+  //   let goods_list = this.data.goodsList;
+  //   goods_list.push(goods_obj);
+  //   this.setData({
+  //     num: 1,
+  //     goodsList:goods_list,
+  //     initNum: false
+  //   });
+  //   //执行扫一扫
+  //   this.scan();
+  // },
   //点击删除商品
   deleteGoods(v) {
     let index = v.target.dataset.index;

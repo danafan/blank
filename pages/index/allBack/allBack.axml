@@ -102,7 +102,7 @@
     </view>
   </view>
   <!-- 输入商品数量弹窗 -->
-  <view a:if="{{initNum}}" class="ball">
+  <!-- <view a:if="{{initNum}}" class="ball">
     <view class="content" catchTap>
       <view class="conTitle">
         填写数量
@@ -136,9 +136,8 @@
           继续扫
         </button>
       </view>
-
     </view>
-  </view>
+  </view> -->
   <!-- 确认退货弹框 -->
   <view a:if="{{isBall}}" class="ball" onTap="closeBall">
     <view class="content" catchTap>
