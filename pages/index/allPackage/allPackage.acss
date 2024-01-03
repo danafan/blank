@@ -204,7 +204,9 @@
   width: 160rpx;
   font-size: 28rpx;
 }
-
+.mr30{
+  margin-right: 30rpx;
+}
 .infoItem {
   display: flex;
   align-items: center;

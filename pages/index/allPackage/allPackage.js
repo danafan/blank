@@ -19,6 +19,8 @@ Page({
     goodsItemNum: 1,        //扫描之后临时的商品数量
     wms_list: [],           //仓库列表
     wms_index: 0,
+    selectSupplier:true,   //选择供应商
+    is_check_return:1,
   },
   onLoad() {
     //获取所有仓库列表
@@ -104,6 +106,18 @@ Page({
       goodsItemCode: e.detail.value
     });
   },
+   //修改是否验证可退
+   changeReturn(e){
+    this.setData({
+      is_check_return:e.detail.value
+    })
+  },
+  //点击确认选择当前供应商
+  checkSupplier(){
+    this.setData({
+      selectSupplier: false
+    })
+  },
   //回车时触发
   searchBtn() {
     if (this.data.goodsItemCode == "") {
@@ -118,7 +132,8 @@ Page({
         url: getApp().globalData.baseurl + 'package/check_sku',
         method: 'POST',
         data: {
-          sku_id: this.data.goodsItemCode
+          sku_id: this.data.goodsItemCode,
+          is_check_return:this.data.is_check_return
         },
         dataType: 'json',
         success: (res) => {

@@ -15,6 +15,7 @@ Page({
     remark: "",            //备注
     id: "",                //选中的供应商id
     is_verify:1,           //是否验证
+    is_check_return:1,     //是否验证可退
     type: 1,               //1:第一次打包；0:商家不一致确认之后第二次打包
     wms_list: [],          //仓库列表
     wms_index: 0,
@@ -121,6 +122,7 @@ Page({
       uniqNum: this.data.code,
       supplier_id:this.data.id,
       is_verify:this.data.is_verify,
+      is_check_return:this.data.is_check_return,
       type: 1
     }
     if (this.data.package != "") {
@@ -304,6 +306,12 @@ Page({
   radioChange(e){
     this.setData({
       is_verify:e.detail.value
+    })
+  },
+  //修改是否验证可退
+  changeReturn(e){
+    this.setData({
+      is_check_return:e.detail.value
     })
   },
   //确认打包

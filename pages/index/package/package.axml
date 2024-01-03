@@ -77,6 +77,21 @@
             </label>
           </radio-group>
         </view>
+        <view class="infoItem">
+          <view class="infoReturnName">
+            是否验证可退：
+          </view>
+          <radio-group class="radio-group" onChange="changeReturn" name="lib">
+            <label class="radio mr30">
+              <radio value="1" checked="{{true}}" />
+              <text class="radio-text">是</text>
+            </label>
+            <label class="radio">
+              <radio value="0" checked="{{false}}" />
+              <text class="radio-text">否</text>
+            </label>
+          </radio-group>
+        </view>
       </view>
       <button class="ok" type="primary" catchTap="checkSupplier">确认当前供应商
       </button>

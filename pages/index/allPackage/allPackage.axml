@@ -49,6 +49,30 @@
       </view>
     </view>
   </view>
+  <!-- 选择供应商弹窗 -->
+  <view class="ball" a:if="{{selectSupplier}}">
+    <view class="content" catchTap>
+      <view class="conTitle">请选择</view>
+      <view class="info">
+        <view class="infoItem">
+          <view class="infoReturnName">
+            是否验证可退：
+          </view>
+          <radio-group class="radio-group" onChange="changeReturn" name="lib">
+            <label class="radio mr30">
+              <radio value="1" checked="{{true}}" />
+              <text class="radio-text">是</text>
+            </label>
+            <label class="radio">
+              <radio value="0" checked="{{false}}" />
+              <text class="radio-text">否</text>
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <button class="ok" type="primary" catchTap="checkSupplier">确认</button>
+    </view>
+  </view>
   <!-- 完成打包弹框 -->
   <view class="ball" a:if="{{isBall}}" onTap="closeBall">
     <view class="content" catchTap>
