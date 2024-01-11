@@ -7,6 +7,7 @@
     "pages/index/getoff/getoff",
     "pages/index/reach/reach",
     "pages/index/sendback/sendback",
+    "pages/index/manualReturn/manualReturn",
     "pages/index/void/void",
     "pages/index/packDetail/packDetail",
     "pages/index/packageDetail/getdetail",
@@ -23,7 +24,8 @@
     "pages/index/allPackage/allPackage",
     "pages/index/returnRoom/returnRoom",
     "pages/index/allRecoed/allRecoed",
-    "pages/index/allBack/allBack"
+    "pages/index/allBack/allBack",
+    "pages/index/manualReturn/manualReturn"
   ],
   "window": {
     "pullRefresh": false,

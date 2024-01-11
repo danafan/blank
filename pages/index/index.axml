@@ -1,103 +1,109 @@
 <view class="container">
-  <view class="username">登陆账户：{{username}}       
+  <view class="username">
+    登陆账户：{{username}}
   </view>
   <view class="items">
     <view class="item" data-type="1-1" onTap="go">
-      <image src="../../imgs/dabao.png"/>
-      <view>打包                        
+      <image src="../../imgs/dabao.png" />
+      <view>打包
       </view>
     </view>
     <view class="item" data-type="1-2" onTap="go">
-      <image src="../../imgs/entrucking.png"/>
-      <view>装车                         
+      <image src="../../imgs/entrucking.png" />
+      <view>装车
       </view>
     </view>
     <view class="item" data-type="1-3" onTap="go">
-      <image src="../../imgs/downcar.png"/>
-      <view>下车                  
+      <image src="../../imgs/downcar.png" />
+      <view>下车
       </view>
     </view>
     <view class="item" data-type="1-4" onTap="go">
-      <image src="../../imgs/daoda.png"/>
-      <view>到达                  
+      <image src="../../imgs/daoda.png" />
+      <view>到达
       </view>
     </view>
   </view>
   <view class="items">
     <view class="item" data-type="3-3" onTap="go">
-      <image src="../../imgs/fc_icon.png"/>
-      <view>返仓                        
+      <image src="../../imgs/fc_icon.png" />
+      <view>返仓
       </view>
     </view>
   </view>
   <view class="items">
     <view class="item" data-type="2-1" onTap="go">
-      <image src="../../imgs/tuihui.png"/>
-      <view>商品退回                         
+      <image src="../../imgs/tuihui.png" />
+      <view>商品退回
       </view>
     </view>
     <view class="item" data-type="2-9" onTap="go">
-      <image src="../../imgs/all_back.png"/>
-      <view>批量退回                         
+      <image src="../../imgs/all_back.png" />
+      <view>批量退回
       </view>
     </view>
     <view class="item" data-type="2-5" onTap="go">
-      <image src="../../imgs/void.png"/>
-      <view>包裹作废                         
+      <image src="../../imgs/void.png" />
+      <view>包裹作废
       </view>
     </view>
     <view class="item" data-type="2-2" onTap="go">
-      <image src="../../imgs/saoma.png"/>
-      <view>扫码获取                  
+      <image src="../../imgs/saoma.png" />
+      <view>扫码获取
       </view>
     </view>
     <view class="item" data-type="2-3" onTap="go">
-      <image src="../../imgs/jilu.png"/>
-      <view>我的记录                          
+      <image src="../../imgs/jilu.png" />
+      <view>我的记录
       </view>
     </view>
     <view class="item" data-type="2-4" onTap="go">
-      <image src="../../imgs/warn.png"/>
-      <view>异常包裹                          
+      <image src="../../imgs/warn.png" />
+      <view>异常包裹
       </view>
     </view>
     <view class="item" data-type="2-6" onTap="go">
-      <image src="../../imgs/biaoji.png"/>
-      <view>标记异常                          
+      <image src="../../imgs/biaoji.png" />
+      <view>标记异常
       </view>
     </view>
-     <view class="item" data-type="2-7" onTap="go">
-      <image src="../../imgs/all_package_icon.png"/>
-      <view>批量打包                          
+    <view class="item" data-type="2-7" onTap="go">
+      <image src="../../imgs/all_package_icon.png" />
+      <view>批量打包
       </view>
     </view>
-    <view class="item" data-type="2-8" onTap="go" a:if="{{is_all_package == '1'}}">
-      <image src="../../imgs/all_record_icon.png"/>
-      <view>全部记录                          
+    <view a:if="{{is_all_package == '1'}}" class="item" data-type="2-8" onTap="go">
+      <image src="../../imgs/all_record_icon.png" />
+      <view>全部记录
+      </view>
+    </view>
+    <view class="item" data-type="2-10" onTap="go">
+      <image src="../../imgs/manual_return.png" />
+      <view>手动退回
       </view>
     </view>
   </view>
   <view class="items">
     <view class="item" data-type="3-1" onTap="go">
-      <image src="../../imgs/kuaidi.png"/>
-      <view>快递取货                        
+      <image src="../../imgs/kuaidi.png" />
+      <view>快递取货
       </view>
     </view>
     <view class="item" data-type="3-2" onTap="go">
-      <image src="../../imgs/shangjia.png"/>
-      <view>商家取货                        
+      <image src="../../imgs/shangjia.png" />
+      <view>商家取货
       </view>
     </view>
   </view>
   <view class="items">
     <view class="item" data-type="4-1" onTap="go">
-      <image src="../../imgs/get_package.png"/>
-      <view>拿货                        
+      <image src="../../imgs/get_package.png" />
+      <view>拿货
       </view>
     </view>
     <view class="item" data-type="4-2" onTap="go">
-      <image src="../../imgs/get_pack_record.png"/>
-      <view>拿货记录                        
+      <image src="../../imgs/get_pack_record.png" />
+      <view>拿货记录
       </view>
     </view>
   </view>

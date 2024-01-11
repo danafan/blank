@@ -140,6 +140,12 @@ Page({
           url: '/pages/index/allBack/allBack'
         });
         break;
+      case "2-10":
+          //手动退回
+          dd.navigateTo({
+            url: '/pages/index/manualReturn/manualReturn'
+          });
+          break;
       case "3-1":
         //快递取货
         this.scan("3-1");

@@ -1,0 +1,9 @@
+<view class="send">
+    <view class="label">商品唯一码</view>
+    <input
+      class="num_input"
+      onInput="bindKeyInput"
+      value="{{sku}}"
+    />
+  <button type="primary" onTap="submit">查询</button>
+</view>
